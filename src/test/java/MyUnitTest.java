@@ -22,4 +22,15 @@ public class MyUnitTest {
 		Assert.assertEquals(3, phaser.timeToRepair());		
 	
 	}
+	
+	@Test
+	public void phaserTakesMoreDamage() {
+		Phaser phaser = new Phaser();
+		int energyHit = 300;
+		phaser.takesDamage(energyHit);
+		energyHit = 200;
+		phaser.takesDamage(energyHit);
+		Assert.assertEquals(5, phaser.timeToRepair());		
+	
+	}
 }

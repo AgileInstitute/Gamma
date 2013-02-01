@@ -11,7 +11,7 @@ public class Phaser {
 	}
 
 	public void takesDamage(int energyHit) {
-	 damage = energyHit / 100;
+	 damage += energyHit / 100;
 		
 	}
 
