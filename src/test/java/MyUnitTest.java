@@ -1,10 +1,21 @@
 package test.java;
 
+import main.java.Engine;
 import main.java.Phaser;
+import main.java.Subsystem;
 
 import org.junit.*;
 
 public class MyUnitTest {
+
+	@Test
+	public void engineTakesDamage() {
+		Subsystem engine = new Engine();
+		int energyHit = 300;
+		engine.takesDamage(energyHit);
+		Assert.assertEquals(5, engine.timeToRepair());		
+	
+	}
 
 	@Test
 	public void phaserIsUndamagedAtCreation() {
@@ -12,7 +23,6 @@ public class MyUnitTest {
 		Assert.assertEquals(0, phaser.timeToRepair());		
 	
 	}
-
 
 	@Test
 	public void phaserTakesDamage() {
@@ -33,4 +43,6 @@ public class MyUnitTest {
 		Assert.assertEquals(5, phaser.timeToRepair());		
 	
 	}
+	
+	
 }

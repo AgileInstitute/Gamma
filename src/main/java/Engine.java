@@ -1,9 +1,10 @@
 package main.java;
 
-public class Phaser extends Subsystem {
-	
+public class Engine extends Subsystem {
+
 	public int energyPerStarDate() {
-		return 100;
+		return 60;
 	}
+
 
 }
