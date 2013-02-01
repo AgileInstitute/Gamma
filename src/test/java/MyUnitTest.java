@@ -5,11 +5,7 @@ import main.java.Phaser;
 import org.junit.*;
 
 public class MyUnitTest {
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> First
 	@Test
 	public void phaserIsUndamagedAtCreation() {
 		Phaser phaser = new Phaser();
@@ -19,12 +15,6 @@ public class MyUnitTest {
 
 
 	@Test
-<<<<<<< HEAD
-		public void testSecondTest() {
-			Assert.assertEquals(2 + 2, 4);
-
-	}
-=======
 	public void phaserTakesDamage() {
 		Phaser phaser = new Phaser();
 		int energyHit = 300;
@@ -32,6 +22,4 @@ public class MyUnitTest {
 		Assert.assertEquals(3, phaser.timeToRepair());		
 	
 	}
-	
->>>>>>> First
 }
