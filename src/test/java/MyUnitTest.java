@@ -4,7 +4,8 @@ import main.java.Engine;
 import main.java.Phaser;
 import main.java.Subsystem;
 
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class MyUnitTest {
 
@@ -14,9 +15,9 @@ public class MyUnitTest {
 		int energyHit = 300;
 		engine.takesDamage(energyHit);
 		int currentEngineTimeToRepair = engine.timeToRepair();
-		int starDate = 1;
+		int starDate = 10;
 		engine.repair(starDate);
-		Assert.assertEquals(currentEngineTimeToRepair - 1, engine.timeToRepair());		
+		Assert.assertTrue(currentEngineTimeToRepair - starDate <= engine.timeToRepair());		
 	
 	}
 
