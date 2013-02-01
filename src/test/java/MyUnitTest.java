@@ -9,6 +9,18 @@ import org.junit.*;
 public class MyUnitTest {
 
 	@Test
+	public void engineIsRepairedAfterAStarDate() {
+		Subsystem engine = new Engine();
+		int energyHit = 300;
+		engine.takesDamage(energyHit);
+		int currentEngineTimeToRepair = engine.timeToRepair();
+		int starDate = 1;
+		engine.repair(starDate);
+		Assert.assertEquals(currentEngineTimeToRepair - 1, engine.timeToRepair());		
+	
+	}
+
+	@Test
 	public void engineTakesDamage() {
 		Subsystem engine = new Engine();
 		int energyHit = 300;

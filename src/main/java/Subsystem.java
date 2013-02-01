@@ -2,16 +2,21 @@ package main.java;
 
 public abstract class Subsystem {
 
-	private int damage;
+	private int damageInStarDates;
 
 	public int timeToRepair() {
-		return damage;
+		return damageInStarDates;
 	}
 
 	public void takesDamage(int energyHit) {
-		 damage += energyHit / energyPerStarDate();
+		 damageInStarDates += energyHit / energyPerStarDate();
 	
 	}
 
 	public abstract int energyPerStarDate();
+
+	public void repair(int starDate) {
+		damageInStarDates -= starDate;
+		
+	}
 }
