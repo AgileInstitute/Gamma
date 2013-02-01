@@ -9,4 +9,8 @@ public class MyUnitTest {
 		Assert.assertEquals(2 + 2, 4);
 	}
 
+	public voud sampleTest()
+	{
+
+	}
 }
