@@ -9,4 +9,9 @@ public class MyUnitTest {
 		Assert.assertEquals(2 + 2, 4);
 	}
 
+	@Test
+	public void testSecondTest() {
+		Assert.assertEquals(2 + 2, 4);
+	}
+
 }
