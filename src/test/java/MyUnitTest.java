@@ -12,7 +12,17 @@ import org.junit.Test;
 
 public class MyUnitTest {
 	
+	@Test
+	public void strongHitBringsShieldDown() {
+		Ship ship = new Ship();
+		int energy = 1000;
+		ship.tranferEnergyToShield(energy);
+		int energyHit = 100000;
+		ship.takesHit(energyHit);
+		Assert.assertTrue(ship.getShield().isDown());
+	}
 
+	
 	@Test
 	public void shieldTakesDamageAndDrainsSomeOfItsEnergy() {
 		Ship ship = new Ship();
@@ -24,8 +34,6 @@ public class MyUnitTest {
 		ship.takesHit(energyHit);
 		Assert.assertEquals(shipEnergy, ship.getEnergy());		
 		Assert.assertEquals(shieldEnergy - energyHit, ship.getShield().getEnergy());		
-
-		
 	}
 
 

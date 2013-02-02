@@ -20,7 +20,16 @@ public class Shield extends Subsystem {
 	}
 
 	public void takesHit(int energyHit) {
-		this.energy -= energyHit;		
+		if (energyHit > this.energy) {
+			this.energy = 0;	
+		} else {
+			this.energy -= energyHit;		
+		}
+		
 	}
 
+	public boolean isDown() {
+		// TODO Auto-generated method stub
+		return this.energy == 0;
+	}
 }
