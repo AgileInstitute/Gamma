@@ -11,6 +11,23 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class MyUnitTest {
+	
+
+	@Test
+	public void shieldTakesDamageAndDrainsSomeOfItsEnergy() {
+		Ship ship = new Ship();
+		int energy = 1000;
+		ship.tranferEnergyToShield(energy);
+		int energyHit = 500;
+		int shipEnergy = ship.getEnergy();
+		int shieldEnergy = ship.getShield().getEnergy();
+		ship.takesHit(energyHit);
+		Assert.assertEquals(shipEnergy, ship.getEnergy());		
+		Assert.assertEquals(shieldEnergy - energyHit, ship.getShield().getEnergy());		
+
+		
+	}
+
 
 	@Test
 	public void transferHigherEnergyThanShip() {

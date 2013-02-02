@@ -32,4 +32,9 @@ public class Ship {
 		return minimumEnergy;
 	}
 
+	public void takesHit(int energyHit) {
+		getShield().takesHit(energyHit);
+		
+	}
+
 }

@@ -19,4 +19,8 @@ public class Shield extends Subsystem {
 		this.energy += energy;
 	}
 
+	public void takesHit(int energyHit) {
+		this.energy -= energyHit;		
+	}
+
 }
