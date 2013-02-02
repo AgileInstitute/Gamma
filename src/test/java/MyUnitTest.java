@@ -1,7 +1,5 @@
 package test.java;
 
-import java.util.Random;
-
 import main.java.Engine;
 import main.java.Phaser;
 import main.java.Ship;
@@ -70,22 +68,11 @@ public class MyUnitTest {
 	@Test
 	public void shieldsDownTest()
 	{
-		int energyHit = 300;
-		boolean isPhaserTakesHit = new Random().nextBoolean();
-		Subsystem subSys;
-		if(isPhaserTakesHit)
-		{
-			// Phaser is hit.
-			subSys = new Phaser();			
-		}
-		else
-		{
-			// Engine is hit.
-			subSys = new Engine();
-		}
-		int prevTimeToRepair = subSys.timeToRepair();
-		subSys.takesDamage(energyHit);
-		Assert.assertTrue(subSys.timeToRepair() > prevTimeToRepair);
+		Ship ship = new Ship();
+		ship.tranferEnergyToShield(200);
+		Subsystem subSys = ship.takesHit(300);		
+		Assert.assertTrue(ship.getShield().getEnergy() == 0);
+		Assert.assertTrue(subSys.getDamageInStarDates() >= 1);
 	}
 
 	@Test

@@ -12,6 +12,11 @@ public abstract class Subsystem {
 		 damageInStarDates += energyHit / energyPerStarDate();
 	
 	}
+	
+	public int getDamageInStarDates() {
+		
+		return damageInStarDates;
+	}
 
 	public abstract int energyPerStarDate();
 

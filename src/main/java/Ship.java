@@ -1,5 +1,7 @@
 package main.java;
 
+import java.util.Random;
+
 public class Ship {
 
 	private int energy = 10000;
@@ -32,9 +34,34 @@ public class Ship {
 		return minimumEnergy;
 	}
 
-	public void takesHit(int energyHit) {
+	public Subsystem takesHit(int energyHit) {
+		int shieldEnergy = getShield().getEnergy();
+		int remainEnergy = energyHit - shieldEnergy;
+		
 		getShield().takesHit(energyHit);
 		
+		if(getShield().isDown() && remainEnergy > 0)
+		{
+			Subsystem subSys = getSubSysForHit();
+			subSys.takesDamage(remainEnergy);
+			return subSys;
+		}
+		return null;
 	}
-
+	public Subsystem getSubSysForHit()
+	{
+		boolean isPhaserTakesHit = new Random().nextBoolean();
+		Subsystem subSys;
+		if(isPhaserTakesHit)
+		{
+			// Phaser is hit.
+			subSys = new Phaser();			
+		}
+		else
+		{
+			// Engine is hit.
+			subSys = new Engine();
+		}
+		return subSys;
+	}
 }
