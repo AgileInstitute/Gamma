@@ -22,7 +22,7 @@ public class MyUnitTest {
 		
 		int starDatesToRest = 4;
 		ship.rest(starDatesToRest);
-		Assert.assertTrue(ship.getSubsystemByNumber(1).getDamageInStarDates() == 0);
+		Assert.assertTrue(ship.getSubsystemByNumber(0).getDamageInStarDates() == 0);
 	
 	}
 	
@@ -32,11 +32,11 @@ public class MyUnitTest {
 		int energyHit = 400;
 		ship.takesHit(energyHit);
 		
-		int firstSubsysDamage = ship.getSubsystemByNumber(1).getDamageInStarDates();
+		int firstSubsysDamage = ship.getSubsystemByNumber(0).getDamageInStarDates();
 		int starDatesToRest = 1;
 		ship.rest(starDatesToRest);
 		
-		Assert.assertTrue(firstSubsysDamage - starDatesToRest == ship.getSubsystemByNumber(1).getDamageInStarDates());
+		Assert.assertTrue(firstSubsysDamage - starDatesToRest == ship.getSubsystemByNumber(0).getDamageInStarDates());
 	}
 	@Test
 	public void theShieldOnAShipIsRepairedTheSameAmountOfStarDatesTheShipRests() {
@@ -48,7 +48,7 @@ public class MyUnitTest {
 		ship.rest(starDatesToRest);
 		int shieldSubsystemDamage = ship.getShield().getDamageInStarDates();
 		Assert.assertTrue(shieldSubsystemDamage - starDatesToRest == ship.getShield().getDamageInStarDates() ||
-				ship.getSubsystemByNumber(1).getDamageInStarDates() == 0);
+				ship.getSubsystemByNumber(0).getDamageInStarDates() == 0);
 	
 	}
 	
@@ -136,9 +136,9 @@ public class MyUnitTest {
 		subsystems.add(new Photon());
 		subsystems.add(new Phaser());
 		Ship ship = new Ship(subsystems);
-		Subsystem firstSubsystem = ship.getSubsystemByNumber(1);
-		Subsystem secondSubsystem = ship.getSubsystemByNumber(2);
-		Subsystem thirdSubsystem = ship.getSubsystemByNumber(3);
+		Subsystem firstSubsystem = ship.getSubsystemByNumber(0);
+		Subsystem secondSubsystem = ship.getSubsystemByNumber(1);
+		Subsystem thirdSubsystem = ship.getSubsystemByNumber(2);
 		Assert.assertEquals(firstSubsystem.getClass(), (new Engine()).getClass());
 		Assert.assertEquals(secondSubsystem.getClass(), (new Photon()).getClass());
 		Assert.assertEquals(thirdSubsystem.getClass(), (new Phaser()).getClass());
@@ -253,7 +253,7 @@ public class MyUnitTest {
 		for(int i = 0;i < 25;i++)
 		{
 			int subSysNumber = ship.getSubsystemRandomNumber();
-			Assert.assertTrue(subSysNumber >=1 && subSysNumber <= subSystems.size());
+			Assert.assertTrue(subSysNumber >=0 && subSysNumber < subSystems.size());
 		}
 	}
 	
@@ -270,7 +270,7 @@ public class MyUnitTest {
 		for(int i = 0;i < subSystems.size();i++)
 		{
 			Subsystem subSys = subSystems.get(i);
-			Assert.assertTrue(subSys.equals(ship.getSubsystemByNumber(i + 1)));
+			Assert.assertTrue(subSys.equals(ship.getSubsystemByNumber(i)));
 		}
 	}
 	
