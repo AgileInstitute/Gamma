@@ -36,7 +36,7 @@ public class MyUnitTest {
 
 
 	@Test
-	public void transferHigherEnergyThanShip() {
+	public void attemptToTransferMoreEnergyToShieldThanShipCanTransfer() {
 		Ship ship = new Ship();
 		int energy = 100000;
 		ship.tranferEnergyToShield(energy);
