@@ -15,6 +15,121 @@ import org.junit.Test;
 public class MyUnitTest {
 
 	@Test
+	public void shipRestsCompletelyUntilAllTheSubsystemsAreRepaired() {
+		Ship ship = new Ship();
+		int energyHit = 400;
+		ship.takesHit(energyHit);
+		
+		int starDatesToRest = 4;
+		ship.rest(starDatesToRest);
+		Assert.assertTrue(ship.getSubsystemByNumber(1).getDamageInStarDates() == 0);
+	
+	}
+	
+	@Test
+	public void shipRestsPartiallyWhileTheSubsystemsAreRepairedPartially() {
+		Ship ship = new Ship();
+		int energyHit = 400;
+		ship.takesHit(energyHit);
+		
+		int firstSubsysDamage = ship.getSubsystemByNumber(1).getDamageInStarDates();
+		int starDatesToRest = 1;
+		ship.rest(starDatesToRest);
+		
+		Assert.assertTrue(firstSubsysDamage - starDatesToRest == ship.getSubsystemByNumber(1).getDamageInStarDates());
+	}
+	@Test
+	public void theShieldOnAShipIsRepairedTheSameAmountOfStarDatesTheShipRests() {
+		Ship ship = new Ship();
+		int energyHit = 200;
+		ship.takesHit(energyHit);
+		
+		int starDatesToRest = 2;
+		ship.rest(starDatesToRest);
+		int shieldSubsystemDamage = ship.getShield().getDamageInStarDates();
+		Assert.assertTrue(shieldSubsystemDamage - starDatesToRest == ship.getShield().getDamageInStarDates() ||
+				ship.getSubsystemByNumber(1).getDamageInStarDates() == 0);
+	
+	}
+	
+	@Test
+	public void subsystemsOnAShipAreRepairedTheSameAmountOfStarDatesTheShipRests() {
+		List<Subsystem> subsystems = new ArrayList<Subsystem>();
+		subsystems.add(new Engine());
+		subsystems.add(new Photon());
+		subsystems.add(new Phaser());
+		
+		Ship ship = new Ship(subsystems);
+		int energyHit = 300;
+		ship.takesHit(energyHit);
+		ship.takesHit(energyHit);
+		ship.takesHit(energyHit);
+
+		int firstSubsysDamage = ship.getSubsystemByNumber(1).getDamageInStarDates();
+		int secondSubsysDamage = ship.getSubsystemByNumber(2).getDamageInStarDates();
+		int thirdSubsysDamage = ship.getSubsystemByNumber(3).getDamageInStarDates();
+
+		int starDatesToRest = 2;
+		ship.rest(starDatesToRest);
+		Assert.assertTrue(firstSubsysDamage - starDatesToRest == ship.getSubsystemByNumber(1).getDamageInStarDates() ||
+					ship.getSubsystemByNumber(1).getDamageInStarDates() == 0);
+		
+		Assert.assertTrue(secondSubsysDamage - starDatesToRest == ship.getSubsystemByNumber(2).getDamageInStarDates() ||
+				ship.getSubsystemByNumber(2).getDamageInStarDates() == 0);
+		
+		Assert.assertTrue(thirdSubsysDamage - starDatesToRest == ship.getSubsystemByNumber(3).getDamageInStarDates() ||
+				ship.getSubsystemByNumber(3).getDamageInStarDates() == 0);
+
+	}
+
+
+	@Test
+	public void doNotDamageOurOwnSubsystems() {
+		Subsystem engine = new Engine();
+		int energyHit = 300;
+		engine.takesDamage(energyHit);
+		Assert.assertEquals(5, engine.timeToRepair());		
+		engine.repair(-4);
+		Assert.assertEquals(5, engine.timeToRepair());		
+		Assert.assertFalse(engine.isActive());		
+	}
+
+	
+	@Test
+	public void subsytemsCannotBeOverRepared() {
+		Subsystem engine = new Engine();
+		int energyHit = 300;
+		engine.takesDamage(energyHit);
+		Assert.assertEquals(5, engine.timeToRepair());		
+		engine.repair(10);
+		Assert.assertEquals(0, engine.timeToRepair());		
+		Assert.assertTrue(engine.isActive());		
+	}
+
+	@Test
+	public void subsytemsCanBeReparedCompletly() {
+		Subsystem engine = new Engine();
+		int energyHit = 300;
+		engine.takesDamage(energyHit);
+		Assert.assertEquals(5, engine.timeToRepair());		
+		engine.repair(5);
+		Assert.assertEquals(0, engine.timeToRepair());		
+		Assert.assertTrue(engine.isActive());		
+	}
+
+	@Test
+	public void subsytemsCanBeReparedPartially() {
+		Subsystem engine = new Engine();
+		int energyHit = 300;
+		engine.takesDamage(energyHit);
+		Assert.assertEquals(5, engine.timeToRepair());		
+		engine.repair(3);
+		Assert.assertEquals(2, engine.timeToRepair());	
+		Assert.assertFalse(engine.isActive());		
+		
+	}
+
+	@Test
 	public void shipSusbystemsCanBeRetrievedByOrderInWhichTheyWhereAdded() {
 		List<Subsystem> subsystems = new ArrayList<Subsystem>();
 		subsystems.add(new Engine());
@@ -38,7 +153,8 @@ public class MyUnitTest {
 		subsystems.add(new Phaser());
 		Ship ship = new Ship(subsystems);
 		List<Subsystem> allSubsystems = ship.getAllSubsystems();
-		Assert.assertEquals(3, allSubsystems.size());
+		//The shield is also a sub system
+		Assert.assertEquals(4, allSubsystems.size());
 	}
 
 	
@@ -103,7 +219,7 @@ public class MyUnitTest {
 	{
 		Ship ship = new Ship();
 		ship.tranferEnergyToShield(200);
-		Subsystem subSys = ship.takesHit(300);		
+		Subsystem subSys = ship.takesHit(400);		
 		Assert.assertTrue(ship.getShield().getEnergy() == 0);
 		Assert.assertTrue(subSys.getDamageInStarDates() >= 1);
 	}

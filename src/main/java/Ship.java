@@ -12,10 +12,11 @@ public class Ship {
 	private List<Subsystem> subsystems = new ArrayList<Subsystem>();
 
 	public Ship() {
-		// TODO Auto-generated constructor stub
+		subsystems.add(shield);
 	}
 
 	public Ship(List<Subsystem> subsystems) {
+		subsystems.add(shield);
 		this.subsystems  = subsystems;
 	}
 
@@ -54,28 +55,13 @@ public class Ship {
 		
 		if(getShield().isDown() && remainEnergy > 0)
 		{
-			Subsystem subSys = getSubSysForHit();
+			Subsystem subSys = getRandomSubsystem();
 			subSys.takesDamage(remainEnergy);
 			return subSys;
 		}
 		return null;
 	}
-	public Subsystem getSubSysForHit()
-	{
-		boolean isPhaserTakesHit = new Random().nextBoolean();
-		Subsystem subSys;
-		if(isPhaserTakesHit)
-		{
-			// Phaser is hit.
-			subSys = new Phaser();			
-		}
-		else
-		{
-			// Engine is hit.
-			subSys = new Engine();
-		}
-		return subSys;
-	}
+	
 
 	public List<Subsystem> getAllSubsystems() {
 		return this.subsystems;
@@ -95,4 +81,11 @@ public class Ship {
 	{
 		return getSubsystemByNumber(getSubsystemRandomNumber());
 	}
+
+	public void rest(int starDates) {
+		for (Subsystem ss : this.subsystems) {
+			ss.repair(starDates);
+		} 
+	}
+
 }

@@ -21,7 +21,17 @@ public abstract class Subsystem {
 	public abstract int energyPerStarDate();
 
 	public void repair(int starDate) {
+		if (starDate < 1)
+				return;
+		
+		if (starDate > damageInStarDates){
+			starDate = damageInStarDates;
+		}
 		damageInStarDates -= starDate;
 		
+	}
+
+	public boolean isActive() {
+		return damageInStarDates == 0;
 	}
 }
