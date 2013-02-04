@@ -137,7 +137,7 @@ public class MyUnitTest {
 		for(int i = 0;i < 25;i++)
 		{
 			int subSysNumber = ship.getSubsystemRandomNumber();
-			Assert.assertTrue(subSysNumber >=0 && subSysNumber <= subSystems.size());
+			Assert.assertTrue(subSysNumber >=1 && subSysNumber <= subSystems.size());
 		}
 	}
 	
@@ -154,7 +154,7 @@ public class MyUnitTest {
 		for(int i = 0;i < subSystems.size();i++)
 		{
 			Subsystem subSys = subSystems.get(i);
-			Assert.assertTrue(subSys.equals(ship.getSubsystemByNumber(i)));
+			Assert.assertTrue(subSys.equals(ship.getSubsystemByNumber(i + 1)));
 		}
 	}
 	
@@ -178,5 +178,16 @@ public class MyUnitTest {
 	
 	}
 	
-	
+	@Test
+	public void getRandomSubsystem()
+	{
+		ArrayList<Subsystem> subSystems = new ArrayList<Subsystem>();
+		subSystems.add(new Phaser());
+		subSystems.add(new Engine());
+		subSystems.add(new Phaser());
+		subSystems.add(new Engine());
+		Ship ship = new Ship(subSystems);
+		
+		Assert.assertNotNull(ship.getRandomSubsystem());
+	}
 }

@@ -87,6 +87,12 @@ public class Ship {
 
 	public int getSubsystemRandomNumber()
 	{
-		return -1;		
+		int subSysSize = getAllSubsystems().size();		
+		return new Random().nextInt(subSysSize-1)+1;		
+	}
+	
+	public Subsystem getRandomSubsystem()
+	{
+		return getSubsystemByNumber(getSubsystemRandomNumber());
 	}
 }
