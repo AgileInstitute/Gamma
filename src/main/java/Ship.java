@@ -55,8 +55,11 @@ public class Ship {
 		
 		if(getShield().isDown() && remainEnergy > 0)
 		{
-			Subsystem subSys = getRandomSubsystem();
-			subSys.takesDamage(remainEnergy);
+			Subsystem subSys = null; 
+			while(!((subSys = getRandomSubsystem()) instanceof Shield))
+			{
+				subSys.takesDamage(remainEnergy);
+			}
 			return subSys;
 		}
 		return null;
