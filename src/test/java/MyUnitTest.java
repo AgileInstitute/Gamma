@@ -1,7 +1,11 @@
 package test.java;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import main.java.Engine;
 import main.java.Phaser;
+import main.java.Photon;
 import main.java.Ship;
 import main.java.Subsystem;
 
@@ -9,6 +13,34 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class MyUnitTest {
+
+	@Test
+	public void shipSusbystemsCanBeRetrievedByOrderInWhichTheyWhereAdded() {
+		List<Subsystem> subsystems = new ArrayList<Subsystem>();
+		subsystems.add(new Engine());
+		subsystems.add(new Photon());
+		subsystems.add(new Phaser());
+		Ship ship = new Ship(subsystems);
+		Subsystem firstSubsystem = ship.getSubsystemByNumber(1);
+		Subsystem secondSubsystem = ship.getSubsystemByNumber(2);
+		Subsystem thirdSubsystem = ship.getSubsystemByNumber(3);
+		Assert.assertEquals(firstSubsystem.getClass(), (new Engine()).getClass());
+		Assert.assertEquals(secondSubsystem.getClass(), (new Photon()).getClass());
+		Assert.assertEquals(thirdSubsystem.getClass(), (new Phaser()).getClass());
+	}
+
+	
+	@Test
+	public void aShipCanHaveMultipleSubsystems() {
+		List<Subsystem> subsystems = new ArrayList<Subsystem>();
+		subsystems.add(new Engine());
+		subsystems.add(new Photon());
+		subsystems.add(new Phaser());
+		Ship ship = new Ship(subsystems);
+		List<Subsystem> allSubsystems = ship.getAllSubsystems();
+		Assert.assertEquals(3, allSubsystems.size());
+	}
+
 	
 	@Test
 	public void strongHitBringsShieldDown() {
@@ -30,6 +62,7 @@ public class MyUnitTest {
 		int shipEnergy = ship.getEnergy();
 		int shieldEnergy = ship.getShield().getEnergy();
 		ship.takesHit(energyHit);
+		Assert.assertFalse(ship.getShield().isDown());
 		Assert.assertEquals(shipEnergy, ship.getEnergy());		
 		Assert.assertEquals(shieldEnergy - energyHit, ship.getShield().getEnergy());		
 	}

@@ -1,5 +1,7 @@
 package main.java;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Ship {
@@ -7,6 +9,16 @@ public class Ship {
 	private int energy = 10000;
 	private Shield shield = new Shield();
 	private int minimumEnergy = 2000;
+	private List<Subsystem> subsystems = new ArrayList<Subsystem>();
+
+	public Ship() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Ship(List<Subsystem> subsystems) {
+		this.subsystems  = subsystems;
+	}
+
 
 	public int getEnergy(){
 		return energy ;
@@ -64,4 +76,13 @@ public class Ship {
 		}
 		return subSys;
 	}
+
+	public List<Subsystem> getAllSubsystems() {
+		return this.subsystems;
+	}
+
+	public Subsystem getSubsystemByNumber(int i) {
+		return this.subsystems.get(i-1);
+	}
+
 }
