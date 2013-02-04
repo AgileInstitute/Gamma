@@ -124,6 +124,40 @@ public class MyUnitTest {
 	
 	}
 
+	@Test 
+	public void getSubSystemNumber()
+	{
+		ArrayList<Subsystem> subSystems = new ArrayList<Subsystem>();
+		subSystems.add(new Phaser());
+		subSystems.add(new Engine());
+		subSystems.add(new Phaser());
+		subSystems.add(new Engine());
+		Ship ship = new Ship(subSystems);
+		
+		for(int i = 0;i < 25;i++)
+		{
+			int subSysNumber = ship.getSubsystemRandomNumber();
+			Assert.assertTrue(subSysNumber >=0 && subSysNumber <= subSystems.size());
+		}
+	}
+	
+	@Test
+	public void getSubSystemByNumber()
+	{
+		ArrayList<Subsystem> subSystems = new ArrayList<Subsystem>();
+		subSystems.add(new Phaser());
+		subSystems.add(new Engine());
+		subSystems.add(new Phaser());
+		subSystems.add(new Engine());
+		Ship ship = new Ship(subSystems);
+		
+		for(int i = 0;i < subSystems.size();i++)
+		{
+			Subsystem subSys = subSystems.get(i);
+			Assert.assertTrue(subSys.equals(ship.getSubsystemByNumber(i)));
+		}
+	}
+	
 	@Test
 	public void phaserTakesDamage() {
 		Phaser phaser = new Phaser();

@@ -85,4 +85,8 @@ public class Ship {
 		return this.subsystems.get(i-1);
 	}
 
+	public int getSubsystemRandomNumber()
+	{
+		return -1;		
+	}
 }
