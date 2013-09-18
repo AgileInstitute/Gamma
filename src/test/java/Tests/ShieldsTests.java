@@ -69,14 +69,8 @@ public class ShieldsTests {
 		Game game = new Game();
 		WebGadget wg = new WebGadget("shieldTransfer","2000",null);
 		Galaxy galaxy = new Galaxy(wg);
-		
-		Map<Integer, Map<Integer, Klingon>> grid = new HashMap<Integer, Map<Integer, Klingon>>(GRID_SIZE);
-		for (int i = 0; i<GRID_SIZE; i++) {
-			grid.put(i, new HashMap<Integer, Klingon>(GRID_SIZE));
-		}
 
-		grid.get(0).put(0, new MockSuperKlingon());
-		game.setGrid(grid);
+		game.setKlingon(new MockSuperKlingon());
 		
 		int startSheildEnergy = game.getEnterprise().getSheildEnergy();
 		int startEngineEnergy = game.getEnterprise().getSubSystems().get("engines").getEnergy();

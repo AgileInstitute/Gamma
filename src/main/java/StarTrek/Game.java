@@ -9,17 +9,20 @@ public class Game {
 
 	private int GRID_SIZE = 10;
 	private Enterprise enterprise;
-	private Map<Integer, Map<Integer, Klingon>> grid;
+	private Klingon klingon;
+	private Map<Integer, Map<Integer, Object>> grid;
 	
 	public Game() {
 		enterprise = new Enterprise();
+		klingon = new Klingon();
 		
-		grid = new HashMap<Integer, Map<Integer, Klingon>>(GRID_SIZE);
+		grid = new HashMap<Integer, Map<Integer, Object>>(GRID_SIZE);
 		for (int i = 0; i<GRID_SIZE; i++) {
-			grid.put(i, new HashMap<Integer, Klingon>(GRID_SIZE));
+			grid.put(i, new HashMap<Integer, Object>(GRID_SIZE));
 		}
 		
-		grid.get(0).put(0, new Klingon());
+		grid.get(0).put(0, enterprise);
+		grid.get(0).put(1, klingon);
 	}
 	
     public void executeCommand(Galaxy galaxy) {
@@ -70,8 +73,7 @@ public class Game {
 
 	public void defendKlingonAttack(Galaxy galaxy) {
 		galaxy.writeLine("Enterprise Shields = " + enterprise.getSheildEnergy());
-		Klingon enemy = grid.get(0).get(0);
-		int damage = enemy.attack();
+		int damage = klingon.attack();
 		galaxy.writeLine("Klingon attacks Enterprise doing " + damage + " damage.");
 		enterprise.takeDamage(damage);
 		galaxy.writeLine("Enterprise Shields = " + enterprise.getSheildEnergy());
@@ -90,8 +92,10 @@ public class Game {
 		result = "Scan Completed";
 		for (int i = 0; i<GRID_SIZE; i++) {
 			for (int j = 0; j<GRID_SIZE; j++) {
-				Klingon klingon = grid.get(i).get(j);
-				if (klingon != null) {
+				Object object = grid.get(i).get(j);
+				if (object != null && object instanceof Klingon) {
+					System.out.print(" K ");
+				} else if (object != null && object instanceof Enterprise) {
 					System.out.print(" E ");
 				} else {
 					System.out.print(" X ");
@@ -155,12 +159,20 @@ public class Game {
 		this.enterprise = enterprise;
 	}
 
-	public Map<Integer, Map<Integer, Klingon>> getGrid() {
+	public Map<Integer, Map<Integer, Object>> getGrid() {
 		return grid;
 	}
 
-	public void setGrid(Map<Integer, Map<Integer, Klingon>> grid) {
+	public void setGrid(Map<Integer, Map<Integer, Object>> grid) {
 		this.grid = grid;
+	}
+
+	public Klingon getKlingon() {
+		return klingon;
+	}
+
+	public void setKlingon(Klingon klingon) {
+		this.klingon = klingon;
 	}
 
 }
