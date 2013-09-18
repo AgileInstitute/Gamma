@@ -48,6 +48,9 @@ public class Game {
 		}  else if (command.equals("status")) {
 			//TODO
 		}
+    	if (result != null) {
+    		galaxy.writeLine(result);
+    	}
 	}
 
     public String firePhaser(Galaxy galaxy) {
