@@ -3,8 +3,6 @@
 import java.util.HashMap;
 import java.util.Map;
 
-import Untouchables.WebGadget;
-
 public class Game {
 
 	private int GRID_SIZE = 10;
@@ -24,70 +22,31 @@ public class Game {
 		grid.get(0).put(0, enterprise);
 		grid.get(0).put(1, klingon);
 	}
-	
-    public void executeCommand(Galaxy galaxy) {
-    	
-    	String command = galaxy.parameter("command");
-    	
-    	String result = null;
 
-    	if (command.equals("phaser")) {
-    		result = firePhaser(galaxy);
-
-		} else if (command.equals("photon")) {
-			result = firePhotons(galaxy);
-			
-		} else if (command.equals("defend")) {
-			defendKlingonAttack(galaxy);
-		} else if (command.equals("move")) {
-			//TODO
-		} else if (command.equals("rest")) {
-			//TODO
-		} else if (command.equals("shieldTransfer")) {
-			transferEnergyToShields(galaxy);
-			
-		} else if (command.equals("scan")) {
-			result = scanQuadrant();
-		}  else if (command.equals("status")) {
-			//TODO
-		}
-    	if (result != null) {
-    		galaxy.writeLine(result);
-    	}
+    public String firePhaser(int amount) {
+		return executeFireWeapon(klingon, amount, enterprise.getPhaser());
 	}
 
-    public String firePhaser(Galaxy galaxy) {
-		String result;
-		Klingon enemy = (Klingon) galaxy.variable("target");
-		int amount = Integer.parseInt(galaxy.parameter("amount"));
-		result = executeFireWeapon(enemy, amount, enterprise.getPhaser());
-		return result;
+	public String firePhotons() {
+		return executeFireWeapon(klingon, 1, enterprise.getPhotons());
 	}
 
-	public String firePhotons(Galaxy galaxy) {
-		String result;
-		Klingon enemy = (Klingon) galaxy.variable("target");
-		result = executeFireWeapon(enemy, 1, enterprise.getPhotons());
-		return result;
-	}
-
-	public void defendKlingonAttack(Galaxy galaxy) {
-		galaxy.writeLine("Enterprise Shields = " + enterprise.getSheildEnergy());
+	public void defendKlingonAttack() {
+		System.out.println("Enterprise Shields = " + enterprise.getSheildEnergy());
 		int damage = klingon.attack();
-		galaxy.writeLine("Klingon attacks Enterprise doing " + damage + " damage.");
+		System.out.println("Klingon attacks Enterprise doing " + damage + " damage.");
 		enterprise.takeDamage(damage);
-		galaxy.writeLine("Enterprise Shields = " + enterprise.getSheildEnergy());
+		System.out.println("Enterprise Shields = " + enterprise.getSheildEnergy());
 	}
 
-	public void transferEnergyToShields(Galaxy galaxy) {
-		galaxy.writeLine("Enterprise Energy = "+enterprise.getReserveEnergy()+ " Shields = " + enterprise.getSheildEnergy());
-		int amount = Integer.parseInt(galaxy.parameter("amount"));
+	public void transferEnergyToShields(int amount) {
+		System.out.println("Enterprise Energy = "+enterprise.getReserveEnergy()+ " Shields = " + enterprise.getSheildEnergy());
 		enterprise.transferEnergyToShields(amount);
-		galaxy.writeLine("Shield Transfer " + amount);
-		galaxy.writeLine("Enterprise Energy = "+enterprise.getReserveEnergy()+ " Shields = " + enterprise.getSheildEnergy());
+		System.out.println("Shield Transfer " + amount);
+		System.out.println("Enterprise Energy = "+enterprise.getReserveEnergy()+ " Shields = " + enterprise.getSheildEnergy());
 	}
 
-	private String scanQuadrant() {
+	public String scanQuadrant() {
 		String result;
 		result = "Scan Completed";
 		for (int i = 0; i<GRID_SIZE; i++) {
@@ -98,7 +57,7 @@ public class Game {
 				} else if (object != null && object instanceof Enterprise) {
 					System.out.print(" E ");
 				} else {
-					System.out.print(" X ");
+					System.out.print(" . ");
 				}
 			}
 			System.out.println("");
@@ -145,10 +104,6 @@ public class Game {
     
     public int getTorpedoes() {
     	return enterprise.getPhotons().getNumberPhotons();
-    }
-
-    public void fireWeapon(Galaxy galaxy) {
-        executeCommand(galaxy);
     }
 
 	public Enterprise getEnterprise() {

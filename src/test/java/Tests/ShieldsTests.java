@@ -1,35 +1,30 @@
 package Tests;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import StarTrek.Enterprise;
-import StarTrek.Galaxy;
 import StarTrek.Game;
-import StarTrek.Klingon;
-import StarTrek.SubSystem;
-import Untouchables.WebGadget;
-
 
 public class ShieldsTests {
 
-	private static final int GRID_SIZE = 10;
+	Game game;
+	
+    @Before
+    public void setUp() {
+        game = new Game();
+    }
 
 	@Test
 	public void testTransferEnergyToShields (){
 		int energyTransfer = 2000;
-		
-		Game game = new Game();
-		WebGadget wg = new WebGadget("shieldTransfer","2000",null);
-		Galaxy galaxy = new Galaxy(wg);
-		
+
 		int startSheildEnergy = game.getEnterprise().getSheildEnergy();
 		int startReserveEnergy = game.getEnterprise().getReserveEnergy();
 		
-		game.transferEnergyToShields(galaxy);
+		game.transferEnergyToShields(energyTransfer);
+		
 		Enterprise enterprise = game.getEnterprise();
 		enterprise.transferEnergyToShields(energyTransfer);
 		
@@ -42,14 +37,11 @@ public class ShieldsTests {
 	
 	@Test
 	public void testTakeDamageWithSheild (){
-		Game game = new Game();
-		WebGadget wg = new WebGadget("shieldTransfer","2000",null);
-		Galaxy galaxy = new Galaxy(wg);
 		
 		int startSheildEnergy = game.getEnterprise().getSheildEnergy();
 		int startEngineEnergy = game.getEnterprise().getSubSystems().get("engines").getEnergy();
 		
-		game.defendKlingonAttack(galaxy);
+		game.defendKlingonAttack();
 		
 		int endSheildEnergy = game.getEnterprise().getSheildEnergy();
 		int endEngineEnergy = game.getEnterprise().getSubSystems().get("engines").getEnergy();
@@ -66,16 +58,12 @@ public class ShieldsTests {
 	
 	@Test
 	public void testTakeDamageWithSheildDown (){
-		Game game = new Game();
-		WebGadget wg = new WebGadget("shieldTransfer","2000",null);
-		Galaxy galaxy = new Galaxy(wg);
-
 		game.setKlingon(new MockSuperKlingon());
 		
 		int startSheildEnergy = game.getEnterprise().getSheildEnergy();
 		int startEngineEnergy = game.getEnterprise().getSubSystems().get("engines").getEnergy();
 		
-		game.defendKlingonAttack(galaxy);
+		game.defendKlingonAttack();
 		
 		int endSheildEnergy = game.getEnterprise().getSheildEnergy();
 		int endEngineEnergy = game.getEnterprise().getSubSystems().get("engines").getEnergy();

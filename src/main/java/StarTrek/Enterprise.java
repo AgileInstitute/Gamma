@@ -31,6 +31,7 @@ public class Enterprise {
 		reserveEnergy -= energyToTranser;
 		sheildEnergy += energyToTranser;
 	}
+	
 	public void takeDamage(int damage) {
 		sheildEnergy -= damage;
 		if (sheildEnergy < 0) {

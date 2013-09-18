@@ -26,13 +26,13 @@ public class StartGame {
 				System.out.println("Defend");
 				String command = "defend";
 				WebGadget webContext = new WebGadget(command, command, null);
-				game.executeCommand(new Galaxy(webContext));
+				game.defendKlingonAttack();
 			} else if (input.equalsIgnoreCase("t")) {
 				System.out.println("Amount Energy to Transfer to Shield? >");
 				String amount = console.readLine();
 				String command = "shieldTransfer";
 				WebGadget webContext = new WebGadget(command, amount, null);
-				game.executeCommand(new Galaxy(webContext));
+				game.transferEnergyToShields(amount);
 			} else if (input.equalsIgnoreCase("r")) {
 				System.out.println("Rest");
 			} else if (input.equalsIgnoreCase("m")) {
@@ -41,7 +41,7 @@ public class StartGame {
 				System.out.println("Scan");
 				String command = "scan";
 				WebGadget webContext = new WebGadget(command, command, null);
-				game.executeCommand(new Galaxy(webContext));
+				game.scanQuadrant();
 			}
 
 		} while (!input.equalsIgnoreCase("q"));
