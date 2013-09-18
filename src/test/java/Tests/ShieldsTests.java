@@ -18,10 +18,9 @@ public class ShieldsTests {
 
 	@Test
 	public void testTransferEnergyToShields (){
-		int energyTransfer = 2000;
-
-		int startSheildEnergy = game.getEnterprise().getSheildEnergy();
-		int startReserveEnergy = game.getEnterprise().getReserveEnergy();
+		int energyTransfer = 200;
+		game.getEnterprise().setSheildEnergy(1000);
+		game.getEnterprise().setReserveEnergy(1000);
 		
 		game.transferEnergyToShields(energyTransfer);
 		
@@ -31,50 +30,31 @@ public class ShieldsTests {
 		int endSheildEnergy = game.getEnterprise().getSheildEnergy();
 		int endReserveEnergy = game.getEnterprise().getReserveEnergy();
 		
-		Assert.assertEquals("After energy transfer",false, endSheildEnergy - startSheildEnergy == energyTransfer);
-		Assert.assertEquals("After energy transfer",false, startReserveEnergy - endReserveEnergy == energyTransfer);
+		Assert.assertEquals("After energy transfer",endSheildEnergy, 1200);
+		Assert.assertEquals("After energy transfer",endReserveEnergy, 800);
 	}
 	
 	@Test
 	public void testTakeDamageWithSheild (){
 		
-		int startSheildEnergy = game.getEnterprise().getSheildEnergy();
-		int startEngineEnergy = game.getEnterprise().getSubSystems().get("engines").getEnergy();
-		
+		game.getEnterprise().setSheildEnergy(1000);
 		game.defendKlingonAttack();
 		
 		int endSheildEnergy = game.getEnterprise().getSheildEnergy();
-		int endEngineEnergy = game.getEnterprise().getSubSystems().get("engines").getEnergy();
-		
-//		System.out.println("startSheildEnergy="  + startSheildEnergy);
-//		System.out.println("endSheildEnergy="  + endSheildEnergy);
-//		
-//		System.out.println("startEngineEnergy="  + startEngineEnergy);
-//		System.out.println("endEngineEnergy="  + endEngineEnergy);
-		
-		Assert.assertEquals("After defend",true, startSheildEnergy - endSheildEnergy == 200);
-		Assert.assertEquals("After defend",true, startEngineEnergy  == endEngineEnergy);
+
+		Assert.assertEquals("After defend",endSheildEnergy, 800);
+
 	}
 	
 	@Test
 	public void testTakeDamageWithSheildDown (){
 		game.setKlingon(new MockSuperKlingon());
 		
-		int startSheildEnergy = game.getEnterprise().getSheildEnergy();
-		int startEngineEnergy = game.getEnterprise().getSubSystems().get("engines").getEnergy();
-		
+		game.getEnterprise().setSheildEnergy(1000);
 		game.defendKlingonAttack();
 		
 		int endSheildEnergy = game.getEnterprise().getSheildEnergy();
-		int endEngineEnergy = game.getEnterprise().getSubSystems().get("engines").getEnergy();
-//		
-//		System.out.println("startSheildEnergy="  + startSheildEnergy);
-//		System.out.println("endSheildEnergy="  + endSheildEnergy);
-//		
-//		System.out.println("startEngineEnergy="  + startEngineEnergy);
-//		System.out.println("endEngineEnergy="  + endEngineEnergy);
-		
-		Assert.assertEquals("After defend",true, endSheildEnergy == 0);
-		Assert.assertEquals("After defend",true, endEngineEnergy  <0);
+
+		Assert.assertEquals("After defend",endSheildEnergy, 0);
 	}
 }
