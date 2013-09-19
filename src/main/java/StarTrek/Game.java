@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Game {
 
-	private int GRID_SIZE = 10;
+	private int GRID_SIZE = 100;
 	private Enterprise enterprise;
 	private Klingon klingon;
 	private Map<Integer, Map<Integer, Object>> grid;
@@ -19,10 +19,48 @@ public class Game {
 			grid.put(i, new HashMap<Integer, Object>(GRID_SIZE));
 		}
 		
-		grid.get(0).put(0, enterprise);
+		grid = new HashMap<Integer, Map<Integer, Object>>(GRID_SIZE);
+		for (int i = 0; i<GRID_SIZE; i++) {
+			grid.put(i, new HashMap<Integer, Object>(GRID_SIZE));
+		}
+		
+		Location enterpriseLocation = new Location(0,0,0,0);
+		enterprise.setLocation(enterpriseLocation);
+		
+		int xLocation = enterpriseLocation.getAbsoluteX();
+		int yLocation = enterpriseLocation.getAbsoluteY();
+
+		grid.get(xLocation).put(yLocation, enterprise);
 		grid.get(0).put(1, klingon);
 	}
 
+	public void moveEnterprise(int quadX, int quadY, int sectorX, int sectorY) {
+		Location enterpriseLocation = enterprise.getLocation();
+		grid.get(enterpriseLocation.getAbsoluteX()).remove(enterpriseLocation.getAbsoluteY());
+		
+		enterpriseLocation.setQuadrantX(quadX);
+		enterpriseLocation.setQuadrantY(quadY);
+		enterpriseLocation.setSectorX(sectorX);
+		enterpriseLocation.setSectorY(sectorY);
+		
+		int xLocation = enterpriseLocation.getAbsoluteX();
+		int yLocation = enterpriseLocation.getAbsoluteY();
+		
+		grid.get(xLocation).put(yLocation, enterprise);
+	}
+	public void moveEnterprise(int sectorX, int sectorY) {
+		Location enterpriseLocation = enterprise.getLocation();
+		grid.get(enterpriseLocation.getAbsoluteX()).remove(enterpriseLocation.getAbsoluteY());
+
+		enterpriseLocation.setSectorX(sectorX);
+		enterpriseLocation.setSectorY(sectorY);
+		
+		int xLocation = enterpriseLocation.getAbsoluteX();
+		int yLocation = enterpriseLocation.getAbsoluteY();
+		
+		grid.get(xLocation).put(yLocation, enterprise);
+	}
+	
     public void rest(int starDates) {
     	enterprise.repair(starDates);
 	}
@@ -50,11 +88,14 @@ public class Game {
 		System.out.println("Enterprise Energy = "+enterprise.getReserveEnergy()+ " Shields = " + enterprise.getSheildEnergy());
 	}
 
-	public String scanQuadrant() {
-		String result;
-		result = "Scan Completed";
-		for (int i = 0; i<GRID_SIZE; i++) {
-			for (int j = 0; j<GRID_SIZE; j++) {
+	public void scanSector(int qx, int qy) {
+		System.out.println("Scan Quadrant (" + qx + ", " + qy + ")");
+		
+		int startx = qx*10;
+		int starty = qy*10;
+		
+		for (int i = startx; i<(startx+10); i++) {
+			for (int j = starty; j<(starty+10); j++) {
 				Object object = grid.get(i).get(j);
 				if (object != null && object instanceof Klingon) {
 					System.out.print(" K ");
@@ -65,9 +106,7 @@ public class Game {
 				}
 			}
 			System.out.println("");
-			result = "Scan Completed";
 		}
-		return result;
 	}
 
 	/* COMMON Processing ---------------------------------------------- */
@@ -133,5 +172,4 @@ public class Game {
 	public void setKlingon(Klingon klingon) {
 		this.klingon = klingon;
 	}
-
 }

@@ -32,7 +32,7 @@ public class StartGame {
 				System.out.println("Move");
 			} else if (input.equalsIgnoreCase("s")) {
 				System.out.println("Scan");
-				game.scanQuadrant();
+				game.scanSector(0,0);
 			}
 
 		} while (!input.equalsIgnoreCase("q"));
