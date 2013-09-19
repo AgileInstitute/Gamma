@@ -53,4 +53,31 @@ public class ShieldsTests {
 
 		Assert.assertEquals("After defend",endSheildEnergy, 0);
 	}
+	@Test
+	public void testTakeDamageWithSubsystem (){
+		MockEnterprise mockEnterprise = new MockEnterprise();
+		mockEnterprise.setSubSystemsName("engines");
+		
+		game.setEnterprise(mockEnterprise);
+		game.getEnterprise().setSheildEnergy(1000);
+		
+		mockEnterprise.takeDamage(1100);
+		double starDaysToRepair = game.getEnterprise().getSubsystemStarDatesToRepair("engines");
+		Assert.assertEquals("After defend",true, starDaysToRepair > 0);
+	}
+	
+	@Test
+	public void testTakeDamageMultiple (){
+		MockEnterprise mockEnterprise = new MockEnterprise();
+		mockEnterprise.setSubSystemsName("engines");
+		game.setEnterprise(mockEnterprise);
+		game.getEnterprise().setSheildEnergy(1000);
+		for (int i = 0; i <6 ; i ++){
+			mockEnterprise.takeDamage(200);
+		}
+		double starDaysToRepair = game.getEnterprise().getSubsystemStarDatesToRepair("engines");
+
+		Assert.assertEquals("After defend",true, starDaysToRepair > 0);
+	}
+
 }
