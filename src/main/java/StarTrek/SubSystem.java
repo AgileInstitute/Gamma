@@ -4,6 +4,8 @@ public class SubSystem {
 
 	private String name;
 	private int energy;
+	private int unitsDamage;
+
 	public SubSystem(String n, int i) {
 		name = n;
 		energy = i;
