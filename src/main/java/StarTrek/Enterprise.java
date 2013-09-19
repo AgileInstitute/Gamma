@@ -8,6 +8,7 @@ public class Enterprise {
 	
 	private int xLocation;
 	private int yLocation;
+	private boolean isDocked = false;
 	private int reserveEnergy = 10000;
 	private int sheildEnergy = 10000;
 	private Map<String, AbstractSubSystem> subSystems;
@@ -36,7 +37,7 @@ public class Enterprise {
 		
 		for (int i = 0; i<starDates; i++) {
 			for (AbstractSubSystem subSystem : subSystems.values()) {
-				subSystem.repair();
+				subSystem.repair(isDocked);
 			}
 		}
 	}
@@ -107,6 +108,14 @@ public class Enterprise {
 	}
 	public double getSubsystemStarDatesToRepair(String subSystem){
 		return this.subSystems.get(subSystem).getStarDatesToRepair();
+	}
+
+	public void setDocked(boolean isDocked) {
+		this.isDocked = isDocked;
+	}
+
+	public boolean isDocked() {
+		return isDocked;
 	}
 
 }

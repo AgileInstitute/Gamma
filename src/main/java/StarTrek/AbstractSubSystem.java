@@ -26,6 +26,17 @@ public abstract class AbstractSubSystem {
 			starDatesToRepair = 0;
 		}
 	}
+	public void repair(boolean isDocked) {
+		if (isDocked){
+			starDatesToRepair -= 2;
+		}
+		else{
+			starDatesToRepair -= 1;
+		}
+		if (starDatesToRepair < 0) {
+			starDatesToRepair = 0;
+		}
+	}
 
 	public double getStarDatesToRepair() {
 //		DecimalFormat df = new DecimalFormat("#.#");

@@ -4,8 +4,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import StarTrek.AbstractSubSystem;
 import StarTrek.Enterprise;
 import StarTrek.Game;
+import StarTrek.Klingon;
 
 public class ShieldsTests {
 
@@ -56,14 +58,19 @@ public class ShieldsTests {
 	@Test
 	public void testTakeDamageWithSubsystem (){
 		MockEnterprise mockEnterprise = new MockEnterprise();
-		mockEnterprise.setSubSystemsName("engines");
+		String subSystem = "engines";
+		mockEnterprise.setSubSystemsName(subSystem);
 		
 		game.setEnterprise(mockEnterprise);
 		game.getEnterprise().setSheildEnergy(1000);
 		
 		mockEnterprise.takeDamage(1100);
-		double starDaysToRepair = game.getEnterprise().getSubsystemStarDatesToRepair("engines");
-		Assert.assertEquals("After defend",true, starDaysToRepair > 0);
+		AbstractSubSystem engines = game.getEnterprise().getSubSystems().get(subSystem);
+		
+		String starDates = engines.getStarDatesToRepair() + "";
+		
+		System.out.println("Star days to repair: " + starDates);
+		Assert.assertEquals("After defend","1.0", starDates);
 	}
 	
 	@Test
@@ -72,12 +79,17 @@ public class ShieldsTests {
 		mockEnterprise.setSubSystemsName("engines");
 		game.setEnterprise(mockEnterprise);
 		game.getEnterprise().setSheildEnergy(1000);
-		for (int i = 0; i <6 ; i ++){
-			mockEnterprise.takeDamage(200);
-		}
+		
+		mockEnterprise.takeDamage(200);
+		mockEnterprise.takeDamage(200);
+		mockEnterprise.takeDamage(200);
+		mockEnterprise.takeDamage(200);
+		mockEnterprise.takeDamage(200);
+		mockEnterprise.takeDamage(200);
+		mockEnterprise.takeDamage(200);
+		
 		double starDaysToRepair = game.getEnterprise().getSubsystemStarDatesToRepair("engines");
 
 		Assert.assertEquals("After defend",true, starDaysToRepair > 0);
 	}
-
 }
