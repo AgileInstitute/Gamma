@@ -82,5 +82,9 @@ public class Enterprise {
 	public void setReserveEnergy(int reserveEnergy) {
 		this.reserveEnergy = reserveEnergy;
 	}
+	public int getSubsystemEnergy(String subSystem){
+		return this.subSystems.get(subSystem).getEnergy();
+		
+	}
 
 }
