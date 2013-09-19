@@ -39,12 +39,12 @@ public class Enterprise {
 	
 	public void takeDamage(int damage) {
 		
-		if (damage > sheildEnergy) {
+		if (sheildEnergy > damage) {
+			sheildEnergy -= damage;
+		} else {
 			int unblockedDamage = damage - sheildEnergy;
 			determineSubSystemThatIsDamaged().reduceEnergy(unblockedDamage);
 			sheildEnergy = 0; 
-		} else {
-			sheildEnergy -= damage;
 		}
 	}
 	
