@@ -6,13 +6,10 @@ import java.util.Random;
 
 public class Enterprise {
 	
-<<<<<<< HEAD
 	private int xLocation;
 	private int yLocation;
 	private boolean isDocked = false;
-=======
 	private Location location;
->>>>>>> 2f092e959ed804fd376751aa2b5638c6d0c32f47
 	private int reserveEnergy = 10000;
 	private int sheildEnergy = 10000;
 	private Map<String, AbstractSubSystem> subSystems;
@@ -101,7 +98,6 @@ public class Enterprise {
 	public double getSubsystemStarDatesToRepair(String subSystem){
 		return this.subSystems.get(subSystem).getStarDatesToRepair();
 	}
-<<<<<<< HEAD
 
 	public void setDocked(boolean isDocked) {
 		this.isDocked = isDocked;
@@ -111,12 +107,10 @@ public class Enterprise {
 		return isDocked;
 	}
 
-=======
 	public Location getLocation() {
 		return location;
 	}
 	public void setLocation(Location location) {
 		this.location = location;
 	}
->>>>>>> 2f092e959ed804fd376751aa2b5638c6d0c32f47
 }
