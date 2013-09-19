@@ -23,6 +23,10 @@ public class Game {
 		grid.get(0).put(1, klingon);
 	}
 
+    public void rest(int starDates) {
+    	enterprise.repair(starDates);
+	}
+    
     public String firePhaser(int amount) {
 		return executeFireWeapon(klingon, amount, enterprise.getPhaser());
 	}

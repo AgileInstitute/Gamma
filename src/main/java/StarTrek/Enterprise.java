@@ -10,27 +10,36 @@ public class Enterprise {
 	private int yLocation;
 	private int reserveEnergy = 10000;
 	private int sheildEnergy = 10000;
-	private Map<String, SubSystem> subSystems;
+	private Map<String, AbstractSubSystem> subSystems;
 	private Random subsystemRandomizer;
-
+	private Phaser phaser;
+	private Photons photons;
+	
 	public Enterprise() {
-		subSystems = new HashMap<String, SubSystem>();
+		subSystems = new HashMap<String, AbstractSubSystem>();
 		
-		subSystems.put("shields", new SubSystem("shields", 1000));
-		subSystems.put("engines", new SubSystem("engines", 1000));
-		subSystems.put("lifeSupport", new SubSystem("lifeSupport", 1000));
-		subSystems.put("phasers", new SubSystem("phasers", 1000));
-		subSystems.put("photons", new SubSystem("photons", 1000));
-		subSystems.put("navigation", new SubSystem("navigation", 1000));
-		subSystems.put("transporter", new SubSystem("transporter", 1000));
+		subSystems.put("shields", new ShieldsSubSystem("shields"));
+		subSystems.put("engines", new StandardSubSystem("engines"));
+		subSystems.put("lifeSupport", new StandardSubSystem("lifeSupport"));
+		subSystems.put("phasers", new PhaserSubSystem("phasers"));
+		subSystems.put("photons", new StandardSubSystem("photons"));
+		subSystems.put("navigation", new StandardSubSystem("navigation"));
+		subSystems.put("transporter", new StandardSubSystem("transporter"));
 		
 		subsystemRandomizer = new Random(subSystems.size());
 		
 		phaser = new Phaser();
 		photons = new Photons();
 	}
-	private Phaser phaser;
-	private Photons photons;
+	
+	public void repair(int starDates) {
+		
+		for (int i = 0; i<starDates; i++) {
+			for (AbstractSubSystem subSystem : subSystems.values()) {
+				subSystem.repair();
+			}
+		}
+	}
 	
 	public void transferEnergyToShields(int energyToTranser) {
 		reserveEnergy -= energyToTranser;
@@ -43,12 +52,12 @@ public class Enterprise {
 			sheildEnergy -= damage;
 		} else {
 			int unblockedDamage = damage - sheildEnergy;
-			determineSubSystemThatIsDamaged().reduceEnergy(unblockedDamage);
+			determineSubSystemThatIsDamaged().takeDamage(unblockedDamage);
 			sheildEnergy = 0; 
 		}
 	}
 	
-	protected SubSystem determineSubSystemThatIsDamaged() {
+	protected AbstractSubSystem determineSubSystemThatIsDamaged() {
 		int subSystemSelection = subsystemRandomizer.nextInt();
 		return subSystems.get(subSystemSelection);
 	}
@@ -83,10 +92,10 @@ public class Enterprise {
 	public void setSheildEnergy(int sheildEnergy) {
 		this.sheildEnergy = sheildEnergy;
 	}
-	public Map<String, SubSystem> getSubSystems() {
+	public Map<String, AbstractSubSystem> getSubSystems() {
 		return subSystems;
 	}
-	public void setSubSystems(Map<String, SubSystem> subSystems) {
+	public void setSubSystems(Map<String, AbstractSubSystem> subSystems) {
 		this.subSystems = subSystems;
 	}
 	public int getReserveEnergy() {

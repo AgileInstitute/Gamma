@@ -4,11 +4,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import StarTrek.Enterprise;
+import StarTrek.AbstractSubSystem;
 import StarTrek.Game;
 import StarTrek.Klingon;
-import StarTrek.SubSystem;
-
 
 public class PhaserTests {
 
@@ -28,12 +26,15 @@ public class PhaserTests {
 		game.setKlingon(klingon);
 		game.setEnterprise(new MockEnterprise());
 		game.getEnterprise().setSheildEnergy(1000);
-		game.getEnterprise().getSubSystems().get("phasers").setEnergy(1000);
 		
 		game.defendKlingonAttack();
 
-		SubSystem phasers = game.getEnterprise().getSubSystems().get("phasers");
+		AbstractSubSystem phasers = game.getEnterprise().getSubSystems().get("phasers");
 
-		Assert.assertEquals("After defend", phasers.getEnergy(), -1000);
+		Assert.assertEquals("After defend", phasers.getStarDatesToRepair(), "10");
+		
+		game.rest(10);
+
+		Assert.assertEquals("After defend", phasers.getStarDatesToRepair(),  "0");
 	}
 }
