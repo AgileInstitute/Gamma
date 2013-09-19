@@ -37,7 +37,7 @@ public class RepairSubsystemTest {
 		String starDates = phasers.getStarDatesToRepair() + "";
 		Assert.assertEquals("After defend", "10.0", starDates);
 		
-		game.rest(10);
+		game.rest(5);
 
 		starDates = phasers.getStarDatesToRepair() + "";
 		Assert.assertEquals("After defend", "0.0" , starDates);
