@@ -27,10 +27,10 @@ public abstract class AbstractSubSystem {
 		}
 	}
 
-	public String getStarDatesToRepair() {
-		DecimalFormat df = new DecimalFormat("#.#");
-		String starDatesString = df.format(starDatesToRepair);
-		return starDatesString;
+	public double getStarDatesToRepair() {
+//		DecimalFormat df = new DecimalFormat("#.#");
+//		String starDatesString = df.format(starDatesToRepair);
+		return starDatesToRepair;
 	}
 
 	public void setStarDatesToRepair(double starDatesToRepair) {

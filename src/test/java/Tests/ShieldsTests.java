@@ -24,9 +24,6 @@ public class ShieldsTests {
 		
 		game.transferEnergyToShields(energyTransfer);
 		
-		Enterprise enterprise = game.getEnterprise();
-		enterprise.transferEnergyToShields(energyTransfer);
-		
 		int endSheildEnergy = game.getEnterprise().getSheildEnergy();
 		int endReserveEnergy = game.getEnterprise().getReserveEnergy();
 		

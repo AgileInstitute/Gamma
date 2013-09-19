@@ -31,10 +31,12 @@ public class PhaserTests {
 
 		AbstractSubSystem phasers = game.getEnterprise().getSubSystems().get("phasers");
 
-		Assert.assertEquals("After defend", phasers.getStarDatesToRepair(), "10");
+		String starDates = phasers.getStarDatesToRepair() + "";
+		Assert.assertEquals("After defend", "10.0", starDates);
 		
 		game.rest(10);
 
-		Assert.assertEquals("After defend", phasers.getStarDatesToRepair(),  "0");
+		starDates = phasers.getStarDatesToRepair() + "";
+		Assert.assertEquals("After defend", "0.0" , starDates);
 	}
 }

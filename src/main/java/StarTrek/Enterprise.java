@@ -26,7 +26,7 @@ public class Enterprise {
 		subSystems.put("navigation", new StandardSubSystem("navigation"));
 		subSystems.put("transporter", new StandardSubSystem("transporter"));
 		
-		subsystemRandomizer = new Random(subSystems.size());
+		subsystemRandomizer = new Random();
 		
 		phaser = new Phaser();
 		photons = new Photons();
@@ -58,8 +58,9 @@ public class Enterprise {
 	}
 	
 	protected AbstractSubSystem determineSubSystemThatIsDamaged() {
-		int subSystemSelection = subsystemRandomizer.nextInt();
-		return subSystems.get(subSystemSelection);
+		int subSystemSelection = subsystemRandomizer.nextInt(subSystems.size());
+		Object objects [] = subSystems.values().toArray(); 
+		return (AbstractSubSystem) objects[subSystemSelection];
 	}
 	
 	public Phaser getPhaser() {
@@ -104,9 +105,8 @@ public class Enterprise {
 	public void setReserveEnergy(int reserveEnergy) {
 		this.reserveEnergy = reserveEnergy;
 	}
-	public int getSubsystemEnergy(String subSystem){
-		return this.subSystems.get(subSystem).getEnergy();
-		
+	public double getSubsystemStarDatesToRepair(String subSystem){
+		return this.subSystems.get(subSystem).getStarDatesToRepair();
 	}
 
 }
