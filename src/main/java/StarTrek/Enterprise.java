@@ -2,6 +2,7 @@ package StarTrek;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class Enterprise {
 	
@@ -10,6 +11,7 @@ public class Enterprise {
 	private int reserveEnergy = 10000;
 	private int sheildEnergy = 10000;
 	private Map<String, SubSystem> subSystems;
+	private Random subsystemRandomizer;
 
 	public Enterprise() {
 		subSystems = new HashMap<String, SubSystem>();
@@ -17,9 +19,12 @@ public class Enterprise {
 		subSystems.put("shields", new SubSystem("shields", 1000));
 		subSystems.put("engines", new SubSystem("engines", 1000));
 		subSystems.put("lifeSupport", new SubSystem("lifeSupport", 1000));
-		subSystems.put("weapons", new SubSystem("weapons", 1000));
+		subSystems.put("phasers", new SubSystem("phasers", 1000));
+		subSystems.put("photons", new SubSystem("photons", 1000));
 		subSystems.put("navigation", new SubSystem("navigation", 1000));
 		subSystems.put("transporter", new SubSystem("transporter", 1000));
+		
+		subsystemRandomizer = new Random(subSystems.size());
 		
 		phaser = new Phaser();
 		photons = new Photons();
@@ -33,11 +38,19 @@ public class Enterprise {
 	}
 	
 	public void takeDamage(int damage) {
-		sheildEnergy -= damage;
-		if (sheildEnergy < 0) {
-			subSystems.get("engines").reduceEnergy(damage);
-			sheildEnergy = 0;
+		
+		if (damage > sheildEnergy) {
+			int unblockedDamage = damage - sheildEnergy;
+			determineSubSystemThatIsDamaged().reduceEnergy(unblockedDamage);
+			sheildEnergy = 0; 
+		} else {
+			sheildEnergy -= damage;
 		}
+	}
+	
+	protected SubSystem determineSubSystemThatIsDamaged() {
+		int subSystemSelection = subsystemRandomizer.nextInt();
+		return subSystems.get(subSystemSelection);
 	}
 	
 	public Phaser getPhaser() {

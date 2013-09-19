@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import StarTrek.Enterprise;
 import StarTrek.Game;
+import StarTrek.Klingon;
+import StarTrek.SubSystem;
 
 
 public class PhaserTests {
@@ -20,12 +22,18 @@ public class PhaserTests {
 	@Test
 	public void testTakeDamageWithSheild (){
 		
-		game.getEnterprise().setSheildEnergy(1000);
-		game.defendKlingonAttack();
+		Klingon klingon = new Klingon();
+		klingon.setAttackDamage(3000);
 		
-		int endSheildEnergy = game.getEnterprise().getSheildEnergy();
+		game.setKlingon(klingon);
+		game.setEnterprise(new MockEnterprise());
+		game.getEnterprise().setSheildEnergy(1000);
+		game.getEnterprise().getSubSystems().get("phasers").setEnergy(1000);
+		
+		game.defendKlingonAttack();
 
-		Assert.assertEquals("After defend",endSheildEnergy, 800);
+		SubSystem phasers = game.getEnterprise().getSubSystems().get("phasers");
 
+		Assert.assertEquals("After defend", phasers.getEnergy(), -1000);
 	}
 }
