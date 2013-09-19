@@ -43,7 +43,6 @@ public class ShieldsTests {
 		int endSheildEnergy = game.getEnterprise().getSheildEnergy();
 
 		Assert.assertEquals("After defend",endSheildEnergy, 800);
-
 	}
 	
 	@Test
