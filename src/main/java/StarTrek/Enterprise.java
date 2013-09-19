@@ -6,8 +6,7 @@ import java.util.Random;
 
 public class Enterprise {
 	
-	private int xLocation;
-	private int yLocation;
+	private Location location;
 	private int reserveEnergy = 10000;
 	private int sheildEnergy = 10000;
 	private Map<String, AbstractSubSystem> subSystems;
@@ -75,18 +74,6 @@ public class Enterprise {
 	public void setPhotons(Photons photons) {
 		this.photons = photons;
 	}
-	public int getxLocation() {
-		return xLocation;
-	}
-	public void setxLocation(int xLocation) {
-		this.xLocation = xLocation;
-	}
-	public int getyLocation() {
-		return yLocation;
-	}
-	public void setyLocation(int yLocation) {
-		this.yLocation = yLocation;
-	}
 	public int getSheildEnergy() {
 		return sheildEnergy;
 	}
@@ -108,5 +95,10 @@ public class Enterprise {
 	public double getSubsystemStarDatesToRepair(String subSystem){
 		return this.subSystems.get(subSystem).getStarDatesToRepair();
 	}
-
+	public Location getLocation() {
+		return location;
+	}
+	public void setLocation(Location location) {
+		this.location = location;
+	}
 }
