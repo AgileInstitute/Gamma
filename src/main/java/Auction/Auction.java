@@ -47,6 +47,7 @@ public class Auction
 
 	public boolean trySubmitBid(String bidder, float bid) 
 	{
+		if (!IsValidBidder(bidder)) return false;
 		if (!isValidBidAmount(bid)) return false;
 		set_currentBid(bid);
 		set_currentBidder(bidder);
