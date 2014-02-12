@@ -9,8 +9,57 @@ public class Auction
 	float _minimumBid;
 	String _itemLocation;
 	AuctionState _state;
+	float _currentBid;
+	String _currentBidder;
 	
 	
+	
+	public String get_currentBidder() {
+		return _currentBidder;
+	}
+
+	public void set_currentBidder(String _currentBidder) {
+		this._currentBidder = _currentBidder;
+	}
+
+	public boolean IsValidBidder(String bidder)
+	{
+		if (bidder == null)
+			return false;
+		return !_userName.equalsIgnoreCase(bidder);
+	}
+	
+	public boolean IsValidOwner(String owner)
+	{
+		if (owner == null) return false;
+		return !(IsValidBidder(owner));
+	}
+	
+	public boolean modifyAuctionDescription(String description, String userName)
+	{
+		// returns true if edit was successful
+		if (!IsValidOwner(userName))
+		{
+			return false;
+		}
+		else return true;
+	}
+
+	public boolean trySubmitBid(String bidder, float bid) 
+	{
+		set_currentBid(bid);
+		set_currentBidder(bidder);
+		return true;
+	}
+	
+	public float get_currentBid() {
+		return _currentBid;
+	}
+
+	public void set_currentBid(float _currentBid) {
+		this._currentBid = _currentBid;
+	}
+
 	public String get_userName() { 
 		return _userName;
 	}
@@ -71,28 +120,7 @@ public class Auction
 	{
 		_userName = userName;
 	}
+
 	
-	public boolean IsValidBidder(String bidder)
-	{
-		if (bidder == null)
-			return false;
-		return !_userName.equalsIgnoreCase(bidder);
-	}
-	
-	public boolean IsValidOwner(String owner)
-	{
-		if (owner == null) return false;
-		return !(IsValidBidder(owner));
-	}
-	
-	public boolean modifyAuctionDescription(String description, String userName)
-	{
-		// returns true if edit was successful
-		if (!IsValidOwner(userName))
-		{
-			return false;
-		}
-		else return true;
-	}
-	
+
 }

@@ -36,5 +36,18 @@ public class AuctionTests {
 		Auction auction = new Auction("MrSeller");
 		Assert.assertTrue(auction.modifyAuctionDescription("New description", "MrSeller"));
 	}
+	
+	@Test 	
+	public void validateAddNewHighestBid() 	
+	{ 	
+		String seller = "MrSeller";
+		Auction auction = new Auction(seller); 		
+		String bidder = "MrBidder"; 		
+		float bid = 10; 		
+		Assert.assertTrue(auction.trySubmitBid(bidder, bid)); 	
+	}
+	
+	
+	
 
 }
