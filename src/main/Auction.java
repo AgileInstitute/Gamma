@@ -13,7 +13,7 @@ public class Auction
 	{
 		if (bidder == null)
 			return false;
-		return _userName.equalsIgnoreCase(bidder);
+		return !_userName.equalsIgnoreCase(bidder);
 	}
 	
 }
