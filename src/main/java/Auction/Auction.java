@@ -57,6 +57,7 @@ public class Auction
 	public boolean trySubmitBid(String bidder, float bid) 
 	{
 		if (!isValidBid(bidder, bid)) return false;
+		if (bid < this.get_minimumBid()) return false;
 		set_currentBid(bid);
 		set_currentBidder(bidder);
 		return true;
@@ -75,6 +76,45 @@ public class Auction
 		if ( bid > _currentBid) return true;
 		else return false;
 	}
+	
+	
+	public boolean isEditable() 
+	{
+		if (_state == AuctionState.PENDING || _state == AuctionState.OPEN)
+			return true;
+		else return false;
+	}
+
+	public boolean modifyPrimaryFields(String newDesc, int newQty, ItemCondition newCond, int minBid) 
+	{
+		if (get_state() != AuctionState.PENDING) return false;
+		set_description(newDesc);
+		set_quantity(newQty);
+		set_condition(newCond);
+		set_minimumBid(minBid);
+		return true;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public float get_currentBid() {
 		return _currentBid;
@@ -169,6 +209,5 @@ public class Auction
 	{
 		return _state == AuctionState.CLOSED;
 	}
-	
 
 }
