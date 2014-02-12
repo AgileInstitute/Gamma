@@ -24,10 +24,10 @@ public class AuctionTests {
 	}
 	
 	@Test
-	public void validateAuctionEditByOwner()
+	public void validateAuctionDescriptionEditDeniedByNonOwner()
 	{
 		Auction auction = new Auction("MrSeller");
-		
+		Assert.assertFalse(auction.modifyAuctionDescription("New description", "NotMrSeller"));
 	}
 
 }

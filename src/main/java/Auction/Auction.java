@@ -79,9 +79,20 @@ public class Auction
 		return !_userName.equalsIgnoreCase(bidder);
 	}
 	
-	public void modifyAuctionDescription(String description)
+	public boolean IsValidOwner(String owner)
 	{
-		
+		if (owner == null) return false;
+		return !(IsValidBidder(owner));
+	}
+	
+	public boolean modifyAuctionDescription(String description, String userName)
+	{
+		// returns true if edit was successful
+		if (!IsValidOwner(userName))
+		{
+			return false;
+		}
+		return true;
 	}
 	
 }
