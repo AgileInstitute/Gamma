@@ -59,7 +59,16 @@ public class AuctionTests {
 		Assert.assertTrue(auction.trySubmitBid(bidder, bid)); 	
 	}
 	
-	
+	@Test
+	public void validateDenyAdditionOfBidLowerThanHighestBid()
+	{
+		String seller = "MrSeller";
+		String bidder = "MrBidder";
+		Auction auction = new Auction(seller);
+		auction.set_currentBid(10);
+		float newBid = 8;
+		Assert.assertFalse(auction.trySubmitBid(bidder, newBid));
+	}
 	
 
 }

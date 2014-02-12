@@ -47,9 +47,16 @@ public class Auction
 
 	public boolean trySubmitBid(String bidder, float bid) 
 	{
+		if (!isValidBidAmount(bid)) return false;
 		set_currentBid(bid);
 		set_currentBidder(bidder);
 		return true;
+	}
+	
+	public boolean isValidBidAmount(float bid)
+	{
+		if ( bid > _currentBid) return true;
+		else return false;
 	}
 	
 	public float get_currentBid() {
