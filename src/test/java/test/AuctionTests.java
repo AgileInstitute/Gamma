@@ -10,31 +10,43 @@ public class AuctionTests {
 	@Test
 	public void validateSellerCannotBidOnOwnItem() 
 	{
-		Auction auction = new Auction("MrSeller");
-		String bidder = "MrSeller";
-		Assert.assertFalse(auction.IsValidBidder(bidder));
+		String seller = "MrSeller";
+		Auction auction = new Auction(seller);
+		Assert.assertFalse(auction.IsValidBidder(seller));
 	}
 	
 	@Test
-	public void validateSellerCanBidOnItem()
+	public void validateBidderCanBidOnItem()
 	{
-		Auction auction = new Auction("MrSeller");
 		String bidder = "MrBidder";
+		String seller = "MrSeller";
+		Auction auction = new Auction(seller);
 		Assert.assertTrue(auction.IsValidBidder(bidder));
 	}
 	
 	@Test
 	public void validateAuctionDescriptionEditDeniedByNonOwner()
 	{
-		Auction auction = new Auction("MrSeller");
-		Assert.assertFalse(auction.modifyAuctionDescription("New description", "NotMrSeller"));
+		String seller = "MrSeller";
+		String notSeller = "NotMrSeller";
+		Auction auction = new Auction(seller);
+		Assert.assertFalse(auction.modifyAuctionDescription("New description", notSeller));
 	}
 	
 	@Test
 	public void validateAuctionDescriptionEditAllowedByOwner()
 	{
+		String seller = "MrSeller";
+		Auction auction = new Auction(seller);
+		Assert.assertTrue(auction.modifyAuctionDescription("New description", seller));
+	}
+	@Test
+	public void validateAddBid()
+	{
 		Auction auction = new Auction("MrSeller");
-		Assert.assertTrue(auction.modifyAuctionDescription("New description", "MrSeller"));
+		String bidder = "MrBidder";
+		float bid = 10;
+		Assert.assertTrue(auction.trySubmitBid(bidder, bid));
 	}
 	
 	@Test 	
