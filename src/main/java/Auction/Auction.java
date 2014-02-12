@@ -1,4 +1,4 @@
-package main;
+package Auction;
 
 public class Auction
 {

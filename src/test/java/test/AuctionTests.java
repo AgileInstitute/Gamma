@@ -1,7 +1,8 @@
-package gammaTest;
+package test;
 
+import static org.junit.Assert.*;
 import junit.framework.Assert;
-import main.Auction;
+import Auction.Auction;
 
 import org.junit.Test;
 
