@@ -1,10 +1,9 @@
 package test;
 
-import static org.junit.Assert.*;
-import junit.framework.Assert;
-import Auction.Auction;
-
+import org.junit.Assert;
 import org.junit.Test;
+
+import Auction.Auction;
 
 public class AuctionTests {
 
@@ -22,6 +21,13 @@ public class AuctionTests {
 		Auction auction = new Auction("MrSeller");
 		String bidder = "MrBidder";
 		Assert.assertTrue(auction.IsValidBidder(bidder));
+	}
+	
+	@Test
+	public void validateAuctionEditByOwner()
+	{
+		Auction auction = new Auction("MrSeller");
+		
 	}
 
 }
