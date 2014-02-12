@@ -67,7 +67,7 @@ public class AuctionTests {
 	public void validateDenyAdditionOfBidByOwner()
 	{
 		String seller = "MrSeller";
-		String bidder = "MrSeller";
+		String bidder = seller;
 		Auction auction = new Auction(seller);
 		float bid = 10;
 		Assert.assertFalse(auction.trySubmitBid(bidder, bid));
