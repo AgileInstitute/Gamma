@@ -12,9 +12,19 @@ public class Auction
 	float _currentBid;
 	String _currentBidder;
 	float _reserve;
+	float _buyItNowPrice;
 	
 	
 	
+	public float get_buyItNowPrice() {
+		return _buyItNowPrice;
+	}
+	
+	public void set_buyItNowPrice(float buyItNowPrice) 
+	{
+		_buyItNowPrice = buyItNowPrice;
+	}
+
 	public float get_reserve() {
 		return _reserve;
 	}
@@ -191,5 +201,14 @@ public class Auction
 				return true;
 		return false;
 	}
+
+	public boolean setNewbuyItNowPrice(float buyItNowPrice) 
+	{
+		if (buyItNowPrice <= get_reserve()) return false;
+		set_buyItNowPrice(buyItNowPrice);
+		return true;
+	}
+
+
 
 }

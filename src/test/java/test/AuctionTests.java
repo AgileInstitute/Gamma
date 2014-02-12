@@ -211,4 +211,30 @@ public class AuctionTests {
 		auction.set_minimumBid(minimumBid);
 		Assert.assertFalse(auction.trySubmitBid(bidder, bid));
 	}
+	
+	@Test
+	public void validateDontAllowSetBuyItNowPriceBelowReserve()
+	{
+		String seller = "MrSeller";
+		float buyItNowPrice = 10;
+		float reservePrice = 20;
+		
+		Auction auction = new Auction(seller);
+		auction.set_reserve(reservePrice);
+		
+		Assert.assertFalse(auction.setNewbuyItNowPrice(buyItNowPrice));
+	}
+	
+	@Test
+	public void validateAllowSetBuyItNowPriceAboveReserve()
+	{
+		String seller = "MrSeller";
+		float buyItNowPrice = 20;
+		float reservePrice = 10;
+		
+		Auction auction = new Auction(seller);
+		auction.set_reserve(reservePrice);
+		
+		Assert.assertTrue(auction.setNewbuyItNowPrice(buyItNowPrice));
+	}
 }
