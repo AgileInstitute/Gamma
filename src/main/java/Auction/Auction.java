@@ -11,9 +11,18 @@ public class Auction
 	AuctionState _state;
 	float _currentBid;
 	String _currentBidder;
+	float _reserve;
 	
 	
 	
+	public float get_reserve() {
+		return _reserve;
+	}
+
+	public void set_reserve(float _reserve) {
+		this._reserve = _reserve;
+	}
+
 	public String get_currentBidder() {
 		return _currentBidder;
 	}
@@ -142,6 +151,12 @@ public class Auction
 	public Auction(String userName)
 	{
 		_userName = userName;
+	}
+
+	public boolean wasSold() {
+		if((this.get_state()==AuctionState.CLOSED)&&(this.get_currentBid()>=this.get_reserve()))
+				return true;
+		return false;
 	}
 
 	
