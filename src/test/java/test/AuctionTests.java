@@ -29,5 +29,12 @@ public class AuctionTests {
 		Auction auction = new Auction("MrSeller");
 		Assert.assertFalse(auction.modifyAuctionDescription("New description", "NotMrSeller"));
 	}
+	
+	@Test
+	public void validateAuctionDescriptionEditAllowedByOwner()
+	{
+		Auction auction = new Auction("MrSeller");
+		Assert.assertTrue(auction.modifyAuctionDescription("New description", "MrSeller"));
+	}
 
 }
