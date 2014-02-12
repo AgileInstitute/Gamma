@@ -64,9 +64,9 @@ public class Auction
 	
 	public boolean isValidBid(String bidder, float bid)
 	{
+		if (!isAuctionOpen()) return false;
 		if (!IsValidBidder(bidder)) return false;
 		if (!isValidBidAmount(bid)) return false;
-		if (_state == AuctionState.CLOSED) return false;
 		return true;
 	}
 	
@@ -142,7 +142,7 @@ public class Auction
 	}
 	
 	public String get_auction_winner() {
-		if (_state == AuctionState.CLOSED && _currentBid > 0)
+		if (wasSold())
 			return _currentBidder;
 		else
 			return null;
@@ -151,6 +151,7 @@ public class Auction
 	public Auction(String userName)
 	{
 		_userName = userName;
+		_state = AuctionState.PENDING;
 	}
 
 	public boolean wasSold() {
@@ -158,7 +159,16 @@ public class Auction
 				return true;
 		return false;
 	}
-
+	
+	public boolean isAuctionOpen()
+	{
+		return _state == AuctionState.OPEN;
+	}
+	
+	public boolean isAuctionClosed()
+	{
+		return _state == AuctionState.CLOSED;
+	}
 	
 
 }
