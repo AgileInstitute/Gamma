@@ -84,4 +84,14 @@ public class AuctionTests {
 		Assert.assertFalse(auction.trySubmitBid(bidder, bid));
 	}
 	
+	@Test
+	public void validateAddValidBidOnOpenAuction()
+	{
+		String seller = "MrSeller";
+		String bidder = "MrBidder";
+		float bid = 10;
+		Auction auction = new Auction(seller);
+		auction.set_state(AuctionState.OPEN);
+		Assert.assertTrue(auction.trySubmitBid(bidder, bid));
+	}
 }
