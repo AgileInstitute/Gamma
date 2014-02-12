@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import Auction.Auction;
+import Auction.AuctionState;
 
 public class AuctionTests {
 
@@ -40,15 +41,7 @@ public class AuctionTests {
 		Auction auction = new Auction(seller);
 		Assert.assertTrue(auction.modifyAuctionDescription("New description", seller));
 	}
-	@Test
-	public void validateAddBid()
-	{
-		Auction auction = new Auction("MrSeller");
-		String bidder = "MrBidder";
-		float bid = 10;
-		Assert.assertTrue(auction.trySubmitBid(bidder, bid));
-	}
-	
+		
 	@Test 	
 	public void validateAddNewHighestBid() 	
 	{ 	
@@ -77,6 +70,17 @@ public class AuctionTests {
 		String bidder = "MrSeller";
 		Auction auction = new Auction(seller);
 		float bid = 10;
+		Assert.assertFalse(auction.trySubmitBid(bidder, bid));
+	}
+	
+	@Test
+	public void validateDenyAdditionOfBidOnClosedAuction()
+	{
+		String seller = "MrSeller";
+		String bidder = "MrBidder";
+		float bid = 10;
+		Auction auction = new Auction(seller);
+		auction.set_state(AuctionState.CLOSED);
 		Assert.assertFalse(auction.trySubmitBid(bidder, bid));
 	}
 	
