@@ -199,4 +199,16 @@ public class AuctionTests {
 		auction.set_reserve(reserve);
 		Assert.assertTrue(auction.wasSold());
 	}
+	
+	@Test
+	public void validateCantBidBelowMinimumBid()
+	{
+		String seller = "MrSeller";
+		String bidder = "MrBidder";
+		float minimumBid = 5;
+		float bid = 4;
+		Auction auction = new Auction(seller);
+		auction.set_minimumBid(minimumBid);
+		Assert.assertFalse(auction.trySubmitBid(bidder, bid));
+	}
 }
