@@ -94,4 +94,6 @@ public class AuctionTests {
 		auction.set_state(AuctionState.OPEN);
 		Assert.assertTrue(auction.trySubmitBid(bidder, bid));
 	}
+	
+	
 }

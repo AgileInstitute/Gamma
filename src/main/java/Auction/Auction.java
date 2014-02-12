@@ -129,6 +129,14 @@ public class Auction
 
 	public void set_state(AuctionState _state) {
 		this._state = _state;
+		
+	}
+	
+	public String get_auction_winner() {
+		if (_state == AuctionState.CLOSED && _currentBid > 0)
+			return _currentBidder;
+		else
+			return null;
 	}
 
 	public Auction(String userName)
