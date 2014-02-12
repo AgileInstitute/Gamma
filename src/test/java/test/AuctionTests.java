@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import Auction.Auction;
 import Auction.AuctionState;
+import Auction.ItemCondition;
 
 public class AuctionTests {
 
@@ -41,6 +42,82 @@ public class AuctionTests {
 		Auction auction = new Auction(seller);
 		Assert.assertTrue(auction.modifyAuctionDescription("New description", seller));
 	}
+	
+	@Test
+	public void validateAuctionEditPossibleOnPending()
+	{
+		String seller = "MrSeller";
+		Auction auction = new Auction(seller);
+		auction.set_state(AuctionState.PENDING);
+		Assert.assertTrue(auction.isEditable());
+	}
+	
+	@Test
+	public void validateauctionEditPossibleOnOpen()
+	{
+		String seller = "MrSeller";
+		Auction auction = new Auction(seller);
+		auction.set_state(AuctionState.OPEN);
+		Assert.assertTrue(auction.isEditable());
+	}
+	
+	@Test
+	public void validateauctionEditPossibleOnClosed()
+	{
+		String seller = "MrSeller";
+		Auction auction = new Auction(seller);
+		auction.set_state(AuctionState.CLOSED);
+		Assert.assertFalse(auction.isEditable());
+	}
+	
+	@Test 
+	public void validateModifyAuctionPrimaryFieldsOnPendingState()
+	{
+		String seller = "MrSeller";
+		String newDesc = "NewDescription";
+		int newQty = 10;
+		ItemCondition newCond = ItemCondition.USEDDAMAGED;
+		int minBid = 5;
+		
+		Auction auction = new Auction(seller);
+		auction.set_state(AuctionState.PENDING);
+		
+		boolean result = auction.modifyPrimaryFields(newDesc, newQty, newCond, minBid);
+		Assert.assertTrue(result);
+	}
+	
+	@Test
+	public void validateModifyAuctionPrimaryFieldsOnOpenState()
+	{
+		String seller = "MrSeller";
+		String newDesc = "NewDescription";
+		int newQty = 10;
+		ItemCondition newCond = ItemCondition.USEDDAMAGED;
+		int minBid = 5;
+		
+		Auction auction = new Auction(seller);
+		auction.set_state(AuctionState.OPEN);
+		
+		boolean result = auction.modifyPrimaryFields(newDesc, newQty, newCond, minBid);
+		Assert.assertFalse(result);
+	}
+	
+	@Test
+	public void validateModifyAuctionPrimaryFieldsOnClosedState()
+	{
+		String seller = "MrSeller";
+		String newDesc = "NewDescription";
+		int newQty = 10;
+		ItemCondition newCond = ItemCondition.USEDDAMAGED;
+		int minBid = 5;
+		
+		Auction auction = new Auction(seller);
+		auction.set_state(AuctionState.CLOSED);
+		
+		boolean result = auction.modifyPrimaryFields(newDesc, newQty, newCond, minBid);
+		Assert.assertFalse(result);
+	}
+	
 		
 	@Test 	
 	public void validateAddNewHighestBid() 	
