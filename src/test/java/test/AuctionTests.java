@@ -171,4 +171,32 @@ public class AuctionTests {
 		auction.set_state(AuctionState.OPEN);
 		Assert.assertTrue(auction.trySubmitBid(bidder, bid));
 	}
+	
+	@Test
+	public void validateAuctionEndedReserveNotMet()
+	{
+		String seller = "MrSeller";
+		String bidder = "MrBidder";
+		float bid = 4;
+		float reserve = 5;
+		Auction auction = new Auction(seller);
+		auction.trySubmitBid(bidder, bid);
+		auction.set_state(AuctionState.CLOSED);
+		auction.set_reserve(reserve);
+		Assert.assertFalse(auction.wasSold());
+	}
+	
+	@Test
+	public void validateAuctionEndedReserveMet()
+	{
+		String seller = "MrSeller";
+		String bidder = "MrBidder";
+		float bid = 4;
+		float reserve = 3;
+		Auction auction = new Auction(seller);
+		auction.trySubmitBid(bidder, bid);
+		auction.set_state(AuctionState.CLOSED);
+		auction.set_reserve(reserve);
+		Assert.assertTrue(auction.wasSold());
+	}
 }
