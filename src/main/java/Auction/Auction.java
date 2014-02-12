@@ -67,6 +67,45 @@ public class Auction
 		else return false;
 	}
 	
+	
+	public boolean isEditable() 
+	{
+		if (_state == AuctionState.PENDING || _state == AuctionState.OPEN)
+			return true;
+		else return false;
+	}
+
+	public boolean modifyPrimaryFields(String newDesc, int newQty, ItemCondition newCond, int minBid) 
+	{
+		if (get_state() != AuctionState.PENDING) return false;
+		set_description(newDesc);
+		set_quantity(newQty);
+		set_condition(newCond);
+		set_minimumBid(minBid);
+		return true;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public float get_currentBid() {
 		return _currentBid;
 	}
@@ -134,7 +173,9 @@ public class Auction
 	public Auction(String userName)
 	{
 		_userName = userName;
+		_state = AuctionState.PENDING;
 	}
+
 
 	
 
