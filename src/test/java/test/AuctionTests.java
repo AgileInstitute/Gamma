@@ -4,15 +4,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import Auction.Auction;
-import Auction.AuctionState;
 import Auction.ItemCondition;
 
 public class AuctionTests {
 
+	private static String seller = "MrSeller";
+	
 	@Test
 	public void validateSellerCannotBidOnOwnItem() 
 	{
-		String seller = "MrSeller";
 		Auction auction = new Auction(seller);
 		Assert.assertFalse(auction.IsValidBidder(seller));
 	}
@@ -20,16 +20,14 @@ public class AuctionTests {
 	@Test
 	public void validateBidderCanBidOnItem()
 	{
-		String bidder = "MrBidder";
-		String seller = "MrSeller";
+		String bidder = "MrBidder";	
 		Auction auction = new Auction(seller);
 		Assert.assertTrue(auction.IsValidBidder(bidder));
 	}
 	
 	@Test
 	public void validateAuctionDescriptionEditDeniedByNonOwner()
-	{
-		String seller = "MrSeller";
+	{	
 		String notSeller = "NotMrSeller";
 		Auction auction = new Auction(seller);
 		Assert.assertFalse(auction.modifyAuctionDescription("New description", notSeller));
@@ -38,7 +36,7 @@ public class AuctionTests {
 	@Test
 	public void validateAuctionDescriptionEditAllowedByOwner()
 	{
-		String seller = "MrSeller";
+		
 		Auction auction = new Auction(seller);
 		Assert.assertTrue(auction.modifyAuctionDescription("New description", seller));
 	}
@@ -46,7 +44,7 @@ public class AuctionTests {
 	@Test
 	public void validateAuctionEditPossibleOnPending()
 	{
-		String seller = "MrSeller";
+		
 		Auction auction = new Auction(seller);
 		auction.open_auction();
 		Assert.assertTrue(auction.isEditable());
@@ -55,7 +53,7 @@ public class AuctionTests {
 	@Test
 	public void validateauctionEditPossibleOnOpen()
 	{
-		String seller = "MrSeller";
+		
 		Auction auction = new Auction(seller);
 		auction.open_auction();
 		Assert.assertTrue(auction.isEditable());
@@ -64,7 +62,7 @@ public class AuctionTests {
 	@Test
 	public void validateauctionEditPossibleOnClosed()
 	{
-		String seller = "MrSeller";
+		
 		Auction auction = new Auction(seller);
 		auction.close_auction();
 		Assert.assertFalse(auction.isEditable());
@@ -73,7 +71,7 @@ public class AuctionTests {
 	@Test 
 	public void validateModifyAuctionPrimaryFieldsOnPendingState()
 	{
-		String seller = "MrSeller";
+		
 		String newDesc = "NewDescription";
 		int newQty = 10;
 		ItemCondition newCond = ItemCondition.USEDDAMAGED;
@@ -88,7 +86,7 @@ public class AuctionTests {
 	@Test
 	public void validateModifyAuctionPrimaryFieldsOnOpenState()
 	{
-		String seller = "MrSeller";
+		
 		String newDesc = "NewDescription";
 		int newQty = 10;
 		ItemCondition newCond = ItemCondition.USEDDAMAGED;
@@ -104,7 +102,7 @@ public class AuctionTests {
 	@Test
 	public void validateModifyAuctionPrimaryFieldsOnClosedState()
 	{
-		String seller = "MrSeller";
+		
 		String newDesc = "NewDescription";
 		int newQty = 10;
 		ItemCondition newCond = ItemCondition.USEDDAMAGED;
@@ -121,7 +119,7 @@ public class AuctionTests {
 	@Test 	
 	public void validateAddNewHighestBid() 	
 	{ 	
-		String seller = "MrSeller";
+		
 		Auction auction = new Auction(seller);
 		auction.open_auction();
 		String bidder = "MrBidder"; 		
@@ -132,9 +130,10 @@ public class AuctionTests {
 	@Test
 	public void validateDenyAdditionOfBidLowerThanHighestBid()
 	{
-		String seller = "MrSeller";
+		
 		String bidder = "MrBidder";
 		Auction auction = new Auction(seller);
+		auction.open_auction();
 		auction.set_currentBid(10);
 		float newBid = 8;
 		Assert.assertFalse(auction.trySubmitBid(bidder, newBid));
@@ -143,9 +142,10 @@ public class AuctionTests {
 	@Test
 	public void validateDenyAdditionOfBidByOwner()
 	{
-		String seller = "MrSeller";
+		
 		String bidder = seller;
 		Auction auction = new Auction(seller);
+		auction.open_auction();
 		float bid = 10;
 		Assert.assertFalse(auction.trySubmitBid(bidder, bid));
 	}
@@ -153,7 +153,7 @@ public class AuctionTests {
 	@Test
 	public void validateDenyAdditionOfBidOnClosedAuction()
 	{
-		String seller = "MrSeller";
+		
 		String bidder = "MrBidder";
 		float bid = 10;
 		Auction auction = new Auction(seller);
@@ -164,7 +164,7 @@ public class AuctionTests {
 	@Test
 	public void validateAddValidBidOnOpenAuction()
 	{
-		String seller = "MrSeller";
+		
 		String bidder = "MrBidder";
 		float bid = 10;
 		Auction auction = new Auction(seller);
@@ -175,11 +175,12 @@ public class AuctionTests {
 	@Test
 	public void validateAuctionEndedReserveNotMet()
 	{
-		String seller = "MrSeller";
+		
 		String bidder = "MrBidder";
 		float bid = 4;
 		float reserve = 5;
 		Auction auction = new Auction(seller);
+		auction.open_auction();
 		auction.trySubmitBid(bidder, bid);
 		auction.close_auction();
 		auction.set_reserve(reserve);
@@ -189,7 +190,7 @@ public class AuctionTests {
 	@Test
 	public void validateAuctionEndedReserveMet()
 	{
-		String seller = "MrSeller";
+		
 		String bidder = "MrBidder";
 		float bid = 4;
 		float reserve = 3;
@@ -204,7 +205,7 @@ public class AuctionTests {
 	@Test
 	public void validateAuctionWinner()
 	{
-		String seller = "MrSeller";
+		
 		String bidder = "MrBidder";
 		float bid = 4;
 		Auction auction = new Auction(seller);
@@ -221,7 +222,7 @@ public class AuctionTests {
 	@Test
 	public void validateProperWinner()
 	{
-		String seller = "MrSeller";
+		
 		String bidder = "MrBidder";
 		String losingBidder = "MrRandomBidder";
 		float bid = 4;
@@ -239,7 +240,7 @@ public class AuctionTests {
 	@Test
 	public void validateNoAuctionWinner()
 	{
-		String seller = "MrSeller";
+		
 		Auction auction = new Auction(seller);
 		Assert.assertTrue(auction.get_auction_winner() == null);
 	}
@@ -247,7 +248,7 @@ public class AuctionTests {
 	@Test
 	public void validateAuctionIsNotOpenForBid()
 	{
-		String seller = "MrSeller";
+		
 		String bidder = "MrBidder";
 		float bid = 4;
 		Auction auction = new Auction(seller);
@@ -257,7 +258,7 @@ public class AuctionTests {
 	@Test
 	public void validateAuctionIsOpenForBid()
 	{
-		String seller = "MrSeller";
+		
 		String bidder = "MrBidder";
 		float bid = 4;
 		Auction auction = new Auction(seller);
@@ -268,19 +269,20 @@ public class AuctionTests {
 	@Test
 	public void validateCantBidBelowMinimumBid()
 	{
-		String seller = "MrSeller";
+		
 		String bidder = "MrBidder";
 		float minimumBid = 5;
 		float bid = 4;
 		Auction auction = new Auction(seller);
 		auction.set_minimumBid(minimumBid);
+		auction.open_auction();
 		Assert.assertFalse(auction.trySubmitBid(bidder, bid));
 	}
 	
 	@Test
 	public void validateDontAllowSetBuyItNowPriceBelowReserve()
 	{
-		String seller = "MrSeller";
+		
 		float buyItNowPrice = 10;
 		float reservePrice = 20;
 		
@@ -293,7 +295,7 @@ public class AuctionTests {
 	@Test
 	public void validateAllowSetBuyItNowPriceAboveReserve()
 	{
-		String seller = "MrSeller";
+		
 		float buyItNowPrice = 20;
 		float reservePrice = 10;
 		
@@ -306,7 +308,7 @@ public class AuctionTests {
 	@Test
 	public void validateCanBidAboveMinimumBid()
 	{
-		String seller = "MrSeller";
+		
 		String bidder = "MrBidder";
 		float minimumBid = 5;
 		float bid = 6;
