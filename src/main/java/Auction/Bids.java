@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 public class Bids {
 
-	HashMap<String, Bid> bids;
-	Bid highBid;
+	private HashMap<String, Bid> bids;
+	private Bid highBid;
 	
 	public Bids()
 	{
