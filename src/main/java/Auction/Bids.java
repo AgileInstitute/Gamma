@@ -19,16 +19,14 @@ public class Bids {
 	}
 	
 	public boolean addBid(Bid bid) {
-		if (bid.get_bid() <= highBid.get_bid())
-		{
-			return false;
-		}
-		else
+		if (highBid == null || bid.get_bid() > highBid.get_bid())
 		{
 			bids.put(bid.get_user(), bid);
 			highBid = bid;
 			return true;
 		}
+		else
+			return false;
 	}
 	
 	public void removeBid(Bid bid){
