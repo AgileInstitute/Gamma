@@ -9,10 +9,10 @@ public class Auction
 	float _minimumBid;
 	String _itemLocation;
 	AuctionState _state;
-	float _currentBid;
-	String _currentBidder;
 	float _reserve;
 	float _buyItNowPrice;
+	
+	private Bids auctionBids = new Bids();
 	
 
 	public float get_buyItNowPrice() {
@@ -33,11 +33,7 @@ public class Auction
 	}
 
 	public String get_currentBidder() {
-		return _currentBidder;
-	}
-
-	public void set_currentBidder(String _currentBidder) {
-		this._currentBidder = _currentBidder;
+		return auctionBids.getHighBid().get_user();
 	}
 
 	public boolean IsValidBidder(String bidder)
@@ -69,8 +65,8 @@ public class Auction
 			(bid < this.get_minimumBid()) ||
 			(!this.isAuctionOpen()))
 				return false;
-		set_currentBid(bid);
-		set_currentBidder(bidder);
+		Bid newBid =Bid.createBid(bidder, bid);
+		auctionBids.addBid(newBid);
 		return true;
 	}
 	
@@ -84,7 +80,7 @@ public class Auction
 	
 	public boolean isValidBidAmount(float bid)
 	{
-		if ( bid > _currentBid) return true;
+		if ( bid > auctionBids.getHighBid().get_bid()) return true;
 		else return false;
 	}
 	
@@ -108,17 +104,13 @@ public class Auction
 
 	public void buyItNow(String bidder)
 	{
-		set_currentBidder(bidder);
-		set_currentBid(get_buyItNowPrice());
+		Bid newBid = Bid.createBid(bidder, get_buyItNowPrice());
+		auctionBids.addBid(newBid);
 		close_auction();
 	}
 	
 	public float get_currentBid() {
-		return _currentBid;
-	}
-
-	public void set_currentBid(float _currentBid) {
-		this._currentBid = _currentBid;
+		return auctionBids.getHighBid().get_bid();
 	}
 
 	public String get_userName() { 
@@ -183,7 +175,7 @@ public class Auction
 	
 	public String get_auction_winner() {
 		if (wasSold())
-			return _currentBidder;
+			return auctionBids.getHighBid().get_user();
 		else
 			return null;
 	}
