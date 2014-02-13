@@ -80,6 +80,7 @@ public class Auction
 	
 	public boolean isValidBidAmount(float bid)
 	{
+		if (auctionBids.getHighBid() == null) return true;
 		if ( bid > auctionBids.getHighBid().get_bid()) return true;
 		else return false;
 	}
