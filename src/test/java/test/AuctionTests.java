@@ -303,6 +303,7 @@ public class AuctionTests {
 		Assert.assertTrue(auction.setNewbuyItNowPrice(buyItNowPrice));
 	}
 	
+	@Test
 	public void validateCanBidAboveMinimumBid()
 	{
 		String seller = "MrSeller";
@@ -311,6 +312,7 @@ public class AuctionTests {
 		float bid = 6;
 		Auction auction = new Auction(seller);
 		auction.set_minimumBid(minimumBid);
+		auction.open_auction();
 		Assert.assertTrue(auction.trySubmitBid(bidder, bid));
 	}
 }
