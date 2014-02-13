@@ -12,9 +12,19 @@ public class Auction
 	float _currentBid;
 	String _currentBidder;
 	float _reserve;
+	float _buyItNowPrice;
 	
 	
 	
+	public float get_buyItNowPrice() {
+		return _buyItNowPrice;
+	}
+	
+	public void set_buyItNowPrice(float buyItNowPrice) 
+	{
+		_buyItNowPrice = buyItNowPrice;
+	}
+
 	public float get_reserve() {
 		return _reserve;
 	}
@@ -65,9 +75,9 @@ public class Auction
 	
 	public boolean isValidBid(String bidder, float bid)
 	{
+		if (!isAuctionOpen()) return false;
 		if (!IsValidBidder(bidder)) return false;
 		if (!isValidBidAmount(bid)) return false;
-		if (_state == AuctionState.CLOSED) return false;
 		return true;
 	}
 	
@@ -87,7 +97,7 @@ public class Auction
 
 	public boolean modifyPrimaryFields(String newDesc, int newQty, ItemCondition newCond, int minBid) 
 	{
-		if (get_state() != AuctionState.PENDING) return false;
+		if (_state != AuctionState.PENDING) return false;
 		set_description(newDesc);
 		set_quantity(newQty);
 		set_condition(newCond);
@@ -95,7 +105,12 @@ public class Auction
 		return true;
 	}
 
-	
+	public void buyItNow(String bidder)
+	{
+		set_currentBidder(bidder);
+		set_currentBid(get_buyItNowPrice());
+		close_auction();
+	}
 	
 	
 	
@@ -172,12 +187,23 @@ public class Auction
 		this._itemLocation = _itemLocation;
 	}
 
-	public AuctionState get_state() {
-		return _state;
-	}
-
-	public void set_state(AuctionState _state) {
+	private void set_state(AuctionState _state) {
 		this._state = _state;
+	}
+	
+	public void open_auction() {
+		set_state(AuctionState.OPEN);
+	}
+	
+	public void close_auction() {
+		set_state(AuctionState.CLOSED);
+	}
+	
+	public String get_auction_winner() {
+		if (wasSold())
+			return _currentBidder;
+		else
+			return null;
 	}
 
 	public Auction(String userName)
@@ -187,9 +213,28 @@ public class Auction
 	}
 
 	public boolean wasSold() {
-		if((this.get_state()==AuctionState.CLOSED)&&(this.get_currentBid()>=this.get_reserve()))
+		if((_state==AuctionState.CLOSED)&&(this.get_currentBid()>=this.get_reserve()))
 				return true;
 		return false;
 	}
+	
+	public boolean isAuctionOpen()
+	{
+		return _state == AuctionState.OPEN;
+	}
+	
+	public boolean isAuctionClosed()
+	{
+		return _state == AuctionState.CLOSED;
+	}
+
+	public boolean setNewbuyItNowPrice(float buyItNowPrice) 
+	{
+		if (buyItNowPrice <= get_reserve()) return false;
+		set_buyItNowPrice(buyItNowPrice);
+		return true;
+	}
+
+
 
 }
