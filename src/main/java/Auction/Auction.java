@@ -65,8 +65,10 @@ public class Auction
 
 	public boolean trySubmitBid(String bidder, float bid) 
 	{
-		if (!isValidBid(bidder, bid)) return false;
-		if (bid < this.get_minimumBid()) return false;
+		if ((!isValidBid(bidder, bid)) ||
+			(bid < this.get_minimumBid()) ||
+			(!this.isAuctionOpen()))
+				return false;
 		set_currentBid(bid);
 		set_currentBidder(bidder);
 		return true;
