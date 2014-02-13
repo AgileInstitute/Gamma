@@ -1,8 +1,5 @@
 package Auction;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Auction
 {
 	String _userName;

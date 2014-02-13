@@ -8,8 +8,6 @@ import Auction.Bid;
 
 public class BidTests 
 {
-	private static String seller = "MrSeller";
-	
 	@Test
 	public void testDenyCreateBidWithNoBidder() 
 	{
