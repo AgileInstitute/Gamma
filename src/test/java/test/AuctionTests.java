@@ -205,7 +205,6 @@ public class AuctionTests {
 	@Test
 	public void validateAuctionWinner()
 	{
-		
 		String bidder = "MrBidder";
 		float bid = 4;
 		Auction auction = new Auction(seller);
