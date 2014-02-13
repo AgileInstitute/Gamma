@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import Auction.Auction;
+import Auction.Bid;
 import Auction.ItemCondition;
 
 public class AuctionTests {
@@ -127,16 +128,15 @@ public class AuctionTests {
 	}
 	
 	
-	//TODO:  Fix this!
 	@Test
 	public void validateDenyAdditionOfBidLowerThanHighestBid()
 	{
 		
 		String bidder = "MrBidder";
 		Auction auction = new Auction(seller);
-		auction.open_auction();
-		//auction.set_currentBid(10);
 		float newBid = 8;
+		auction.open_auction();
+		auction.trySubmitBid("DummyBidder", newBid);
 		Assert.assertFalse(auction.trySubmitBid(bidder, newBid));
 	}
 	

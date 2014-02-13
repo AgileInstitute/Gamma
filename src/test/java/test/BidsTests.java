@@ -8,8 +8,6 @@ import Auction.Bids;
 
 public class BidsTests {
 	
-	private static String seller = "MrSeller";
-	
 	@Test
 	public void validateHighestBid()
 	{
