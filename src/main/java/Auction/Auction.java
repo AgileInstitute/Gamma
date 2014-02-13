@@ -105,7 +105,12 @@ public class Auction
 		return true;
 	}
 
-	
+	public void buyItNow(String bidder)
+	{
+		set_currentBidder(bidder);
+		set_currentBid(get_buyItNowPrice());
+		close_auction();
+	}
 	
 	
 	

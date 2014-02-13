@@ -46,7 +46,6 @@ public class AuctionTests {
 	{
 		
 		Auction auction = new Auction(seller);
-		auction.open_auction();
 		Assert.assertTrue(auction.isEditable());
 	}
 	
@@ -315,5 +314,18 @@ public class AuctionTests {
 		auction.set_minimumBid(minimumBid);
 		auction.open_auction();
 		Assert.assertTrue(auction.trySubmitBid(bidder, bid));
+	}
+	
+	@Test
+	public void validateBuyItNowBid()
+	{
+		String bidder = "MrBidder";
+		float buyItNowPrice = 30;
+		Auction auction = new Auction(seller);
+		auction.set_buyItNowPrice(buyItNowPrice);
+		auction.open_auction();
+		auction.buyItNow(bidder);
+		Assert.assertTrue(auction.get_auction_winner() == bidder);
+		Assert.assertTrue(auction.get_currentBid() == buyItNowPrice);
 	}
 }
