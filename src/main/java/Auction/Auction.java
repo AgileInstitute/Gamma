@@ -1,8 +1,5 @@
 package Auction;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Auction
 {
 	String _userName;
@@ -17,10 +14,7 @@ public class Auction
 	float _reserve;
 	float _buyItNowPrice;
 	
-	List<Bid> bids = new ArrayList<Bid>();
-	Bid winningBid = new Bid(null, 0);
-	
-	
+
 	public float get_buyItNowPrice() {
 		return _buyItNowPrice;
 	}

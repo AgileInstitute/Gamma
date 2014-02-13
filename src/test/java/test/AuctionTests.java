@@ -204,6 +204,7 @@ public class AuctionTests {
 	@Test
 	public void validateAuctionWinner()
 	{
+		
 		String bidder = "MrBidder";
 		float bid = 4;
 		Auction auction = new Auction(seller);
@@ -325,7 +326,7 @@ public class AuctionTests {
 		auction.set_buyItNowPrice(buyItNowPrice);
 		auction.open_auction();
 		auction.buyItNow(bidder);
-		Assert.assertTrue(auction.get_auction_winner() == bidder);
-		Assert.assertTrue(auction.get_currentBid() == buyItNowPrice);
+		Assert.assertTrue("",auction.get_auction_winner() == bidder);
+		Assert.assertTrue("",auction.get_currentBid() == buyItNowPrice);
 	}
 }

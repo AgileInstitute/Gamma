@@ -3,14 +3,16 @@ package Auction;
 import java.util.HashMap;
 
 public class Bids {
+
 	HashMap<String, Bid> bids;
 	Bid highBid;
 	
 	public Bids()
 	{
 		bids = new HashMap<String, Bid>();
-		highBid = new Bid(null, 0);
+		highBid = null;
 	}
+	
 	
 	public HashMap<String, Bid> getBids() {
 		return bids;
