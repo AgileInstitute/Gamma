@@ -20,7 +20,7 @@ public class BidsTests {
 		bids.addBid(bidLow);
 		bids.addBid(bidHigh);
 		
-		Assert.assertEquals(bidHigh, bids.getHighBid());
+		Assert.assertTrue(bids.getHighBid().equals(bidHigh));
 	}
 
 	@Test
@@ -33,7 +33,7 @@ public class BidsTests {
 		bids.addBid(bidLow);
 		bids.addBid(bidHigh);
 		
-		Assert.assertNotEquals(bidLow, bids.getHighBid());
+		Assert.assertFalse(bids.getHighBid().equals(bidLow));
 	}
 	
 	@Test
