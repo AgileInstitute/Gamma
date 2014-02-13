@@ -17,10 +17,7 @@ public class Auction
 	float _reserve;
 	float _buyItNowPrice;
 	
-	List<Bid> bids = new ArrayList<Bid>();
-	Bid winningBid = new Bid(null, 0);
-	
-	
+
 	public float get_buyItNowPrice() {
 		return _buyItNowPrice;
 	}

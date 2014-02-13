@@ -6,12 +6,20 @@ public class Bid {
 	private float _maxBid;
 	private float _increment;
 	
-	public Bid(String user, float bid)
+	private Bid(String user, float bid)
 	{
 		set_user(user);
 		set_bid(bid);
 		set_maxBid(0);
 		set_increment(0);
+	}
+	
+	public static Bid createBid(String user, float bid)
+	{
+		if (user == null) return null;
+		if (bid <= 0) return null;
+		Bid bidToReturn = new Bid(user, bid);
+		return bidToReturn;
 	}
 	
 	public String get_user() {
@@ -38,4 +46,5 @@ public class Bid {
 	public void set_increment(float _increment) {
 		this._increment = _increment;
 	}
+	
 }

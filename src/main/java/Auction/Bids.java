@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Bids {
 	HashMap<String, Bid> bids = new HashMap<String, Bid>();
-	Bid highBid = new Bid(null, 0);
+	Bid highBid = null;
 	
 	public HashMap<String, Bid> getBids() {
 		return bids;
