@@ -48,7 +48,7 @@ public class AuctionTests {
 	{
 		String seller = "MrSeller";
 		Auction auction = new Auction(seller);
-		auction.set_state(AuctionState.PENDING);
+		auction.open_auction();
 		Assert.assertTrue(auction.isEditable());
 	}
 	
@@ -57,7 +57,7 @@ public class AuctionTests {
 	{
 		String seller = "MrSeller";
 		Auction auction = new Auction(seller);
-		auction.set_state(AuctionState.OPEN);
+		auction.open_auction();
 		Assert.assertTrue(auction.isEditable());
 	}
 	
@@ -66,7 +66,7 @@ public class AuctionTests {
 	{
 		String seller = "MrSeller";
 		Auction auction = new Auction(seller);
-		auction.set_state(AuctionState.CLOSED);
+		auction.close_auction();
 		Assert.assertFalse(auction.isEditable());
 	}
 	
@@ -80,7 +80,6 @@ public class AuctionTests {
 		int minBid = 5;
 		
 		Auction auction = new Auction(seller);
-		auction.set_state(AuctionState.PENDING);
 		
 		boolean result = auction.modifyPrimaryFields(newDesc, newQty, newCond, minBid);
 		Assert.assertTrue(result);
@@ -96,7 +95,7 @@ public class AuctionTests {
 		int minBid = 5;
 		
 		Auction auction = new Auction(seller);
-		auction.set_state(AuctionState.OPEN);
+		auction.open_auction();
 		
 		boolean result = auction.modifyPrimaryFields(newDesc, newQty, newCond, minBid);
 		Assert.assertFalse(result);
@@ -112,7 +111,7 @@ public class AuctionTests {
 		int minBid = 5;
 		
 		Auction auction = new Auction(seller);
-		auction.set_state(AuctionState.CLOSED);
+		auction.close_auction();
 		
 		boolean result = auction.modifyPrimaryFields(newDesc, newQty, newCond, minBid);
 		Assert.assertFalse(result);
@@ -124,7 +123,7 @@ public class AuctionTests {
 	{ 	
 		String seller = "MrSeller";
 		Auction auction = new Auction(seller);
-		auction.set_state(AuctionState.OPEN);
+		auction.open_auction();
 		String bidder = "MrBidder"; 		
 		float bid = 10; 		
 		Assert.assertTrue(auction.trySubmitBid(bidder, bid)); 	
@@ -158,7 +157,7 @@ public class AuctionTests {
 		String bidder = "MrBidder";
 		float bid = 10;
 		Auction auction = new Auction(seller);
-		auction.set_state(AuctionState.CLOSED);
+		auction.close_auction();
 		Assert.assertFalse(auction.trySubmitBid(bidder, bid));
 	}
 	
@@ -169,7 +168,7 @@ public class AuctionTests {
 		String bidder = "MrBidder";
 		float bid = 10;
 		Auction auction = new Auction(seller);
-		auction.set_state(AuctionState.OPEN);
+		auction.open_auction();
 		Assert.assertTrue(auction.trySubmitBid(bidder, bid));
 	}
 	
@@ -182,7 +181,7 @@ public class AuctionTests {
 		float reserve = 5;
 		Auction auction = new Auction(seller);
 		auction.trySubmitBid(bidder, bid);
-		auction.set_state(AuctionState.CLOSED);
+		auction.close_auction();
 		auction.set_reserve(reserve);
 		Assert.assertFalse(auction.wasSold());
 	}
@@ -195,9 +194,9 @@ public class AuctionTests {
 		float bid = 4;
 		float reserve = 3;
 		Auction auction = new Auction(seller);
-		auction.set_state(AuctionState.OPEN);
+		auction.open_auction();
 		auction.trySubmitBid(bidder, bid);
-		auction.set_state(AuctionState.CLOSED);
+		auction.close_auction();
 		auction.set_reserve(reserve);
 		Assert.assertTrue(auction.wasSold());
 	}
@@ -209,10 +208,10 @@ public class AuctionTests {
 		String bidder = "MrBidder";
 		float bid = 4;
 		Auction auction = new Auction(seller);
-		auction.set_state(AuctionState.OPEN);
+		auction.open_auction();
 		if (auction.trySubmitBid(bidder, bid))
 		{
-			auction.set_state(AuctionState.CLOSED);
+			auction.close_auction();
 			Assert.assertTrue(auction.get_auction_winner() == bidder);
 		}
 		else
@@ -227,10 +226,10 @@ public class AuctionTests {
 		String losingBidder = "MrRandomBidder";
 		float bid = 4;
 		Auction auction = new Auction(seller);
-		auction.set_state(AuctionState.OPEN);
+		auction.open_auction();
 		if (auction.trySubmitBid(bidder, bid))
 		{
-			auction.set_state(AuctionState.CLOSED);
+			auction.close_auction();
 			Assert.assertFalse(auction.get_auction_winner() == losingBidder);
 		}
 		else
@@ -262,7 +261,7 @@ public class AuctionTests {
 		String bidder = "MrBidder";
 		float bid = 4;
 		Auction auction = new Auction(seller);
-		auction.set_state(AuctionState.OPEN);
+		auction.open_auction();
 		Assert.assertTrue(auction.trySubmitBid(bidder, bid));
 	}
 	
