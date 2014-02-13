@@ -7,7 +7,7 @@ import Auction.Bid;
 import Auction.Bids;
 
 public class BidsTests {
-	
+
 	@Test
 	public void validateHighestBid()
 	{
@@ -45,5 +45,14 @@ public class BidsTests {
 		
 		Assert.assertFalse(bids.addBid(bidLow));
 		
+	}
+	
+	@Test
+	public void validateCanSubmitBid()
+	{
+		Bid bidLow = Bid.createBid("BidderLow", 4);
+		Bids bids = new Bids();
+		
+		Assert.assertTrue(bids.addBid(bidLow));
 	}
 }
