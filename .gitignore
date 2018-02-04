@@ -3,3 +3,4 @@ build/
 /bin
 .classpath
 .project
+.DS_Store
